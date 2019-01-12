@@ -3,7 +3,15 @@
 
 """The setup script."""
 from setuptools import setup, find_packages
-from sphinx.setup_command import BuildDoc
+# from sphinx.setup_command import BuildDoc
+
+cmdclass = {}
+
+try:
+    from sphinx.setup_command import BuildDoc
+    cmdclass['build_sphinx'] = BuildDoc
+except ImportError:
+    print('WARNING: sphinx not available, not building docs')
 
 
 with open("README.md") as readme_file:
@@ -15,12 +23,13 @@ install_requires = ['numpy', 'pandas', 'six']
 tests_requires = ["coverage", "pytest"]
 dev_requires = ["Sphinx", "sphinx_rtd_theme"]
 
-cmdclass = {'build_sphinx': BuildDoc}
+# cmdclass = {'build_sphinx': BuildDoc}
+
 
 name = "bulwark"
 copyright = "2019"
 version = '0.1'
-release = '0.1.0'
+release = '0.1.1'
 setup(
     name=name,
     version=release,
