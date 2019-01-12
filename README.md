@@ -79,10 +79,9 @@ Roadmap
 
 - Fix bug: MultiCheck is broken
 - Add to pypi
-- Add readthedocs
 - Add travis build server
 - Implement class factory
-- Improve documentation
+- Fix/Improve documentation
   - inherit BaseDecorator and the functions' docstrings w/ __doc__
   - rewrite design.rst and examples.rst
   - Demo how to use with read files from csv; write func to import, decorate with dc.funcs
