@@ -1,0 +1,16 @@
+language: python
+python:
+  - 3.5
+  - 3.6
+  - 3.7
+notifications:
+  email: false
+
+# Install requirements and pytest
+install:
+  - pip install -r requirements.txt
+  - pip install pytest
+
+# Run test
+script:
+  - pytest tests
