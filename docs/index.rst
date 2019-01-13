@@ -67,50 +67,50 @@ Nope - just toggle the built-in debug_mode flag available for every decorator.
        return result_df
 
 What if the test I want isn't part of the library?
-Use the build-in `CustomCheck` to use your own custom function!
+Use the built-in `CustomCheck` to use your own custom function!
 
 .. code-block:: python
 
-  def len_longer_than(df, l):
-    if len(df) <= l:
-      raise AssertionError("df is not as long as expected.")
-    return df
+   def len_longer_than(df, l):
+       if len(df) <= l:
+           raise AssertionError("df is not as long as expected.")
+       return df
 
-  @dc.CustomCheck(len_longer_than, df=df, l=6)
-  def append_a_df(df, df2):
-    return df.append(df2, ignore_index=True)
+   @dc.CustomCheck(len_longer_than, df=df, l=6)
+   def append_a_df(df, df2):
+       return df.append(df2, ignore_index=True)
 
-  df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
-  df2 = pd.DataFrame({"a": [1, np.nan, 3, 4], "b": [4, 5, 6, 7]})
+   df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
+   df2 = pd.DataFrame({"a": [1, np.nan, 3, 4], "b": [4, 5, 6, 7]})
 
-  append_a_df(df, df2)
+   append_a_df(df, df2)
 
 
 What if I want to run a lot of tests and want to see all the errors at once?
-You can use the build-in `MultiCheck`. It will collect all of the errors and either
+You can use the built-in `MultiCheck`. It will collect all of the errors and either
 display a warning message of throw an exception based on the `warn` flag.
 You can even use custom functions with MultiCheck:
 
 .. code-block:: python
 
-  def len_longer_than(df, l):
-    if len(df) <= l:
-      raise AssertionError("df is not as long as expected.")
-    return df
+   def len_longer_than(df, l):
+       if len(df) <= l:
+           raise AssertionError("df is not as long as expected.")
+       return df
 
-  # `checks` takes a dict of function: dict of params for that function.
-  # Note that those function params EXCLUDE df.
-  # Also note that when you use MultiCheck, there's no need to use CustomCheck - just feed in the function.
-  @dc.MultiCheck(checks={ck.has_no_nans: {"columns": None},
-                         len_longer_than: {"l": 6}},
-                         warn=False)
-  def append_a_df(df, df2):
-    return df.append(df2, ignore_index=True)
+   # `checks` takes a dict of function: dict of params for that function.
+   # Note that those function params EXCLUDE df.
+   # Also note that when you use MultiCheck, there's no need to use CustomCheck - just feed in the function.
+   @dc.MultiCheck(checks={ck.has_no_nans: {"columns": None},
+                          len_longer_than: {"l": 6}},
+                  warn=False)
+   def append_a_df(df, df2):
+       return df.append(df2, ignore_index=True)
 
-  df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
-  df2 = pd.DataFrame({"a": [1, np.nan, 3, 4], "b": [4, 5, 6, 7]})
+   df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
+   df2 = pd.DataFrame({"a": [1, np.nan, 3, 4], "b": [4, 5, 6, 7]})
 
-  append_a_df(df, df2)
+   append_a_df(df, df2)
 
 
 Check out :ref:`examples` to see more advanced usage.
