@@ -12,7 +12,7 @@ import pandas as pd
 import pandas.util.testing as tm
 import six
 
-from bulwark.generic import bad_locations  # , verify, verify_all, verify_any
+from bulwark.generic import bad_locations
 
 
 def is_shape(df, shape):
@@ -329,5 +329,27 @@ def multi_check(df, checks, warn=False):
         return df
     elif error_msgs:
         raise AssertionError("\n".join(str(i) for i in error_msgs))
+
+    return df
+
+
+def custom_check(check_func, df, *args, **kwargs):
+    """Assert that `check(df, *args, **kwargs)` is true.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        check_func (function): A function taking `df`, `*args`, and `**kwargs`.
+                               Should raise AssertionError if check not passed.
+
+    Returns:
+        Original `df`.
+
+    """
+    try:
+        check_func(df, *args, **kwargs)
+    except AssertionError as e:
+        msg = "{} is not true.".format(check_func.__name__)
+        e.args = (msg,)
+        raise
 
     return df

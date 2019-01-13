@@ -279,43 +279,6 @@ def test_one_to_many_raises():
         ck.one_to_many(df, 'units', 'parameter')
 
 
-def test_verify():
-    def f(x, n): return len(x) > n
-    df = pd.DataFrame({'A': [1, 2, 3]})
-    tm.assert_frame_equal(df, ck.verify(df, f, n=2))
-    tm.assert_frame_equal(df, ck.verify(df, f, 2))
-
-    # order is verify_func, verif_kwargs, decorated_func
-    tm.assert_frame_equal(df, dc.verify(f, n=2)(_noop)(df))
-    tm.assert_frame_equal(df, dc.verify(f, 2)(_noop)(df))
-
-    with pytest.raises(AssertionError):
-        ck.verify(df, f, n=4)
-        dc.verify(f, n=4)(_noop)(df)
-
-
-def test_verify_all():
-    def f(x, n): return x > n
-    df = pd.DataFrame({'A': [1, 2, 3]})
-    tm.assert_frame_equal(df, ck.verify_all(df, f, 0))
-    tm.assert_frame_equal(df, ck.verify_all(df, f, n=0))
-
-    with pytest.raises(AssertionError):
-        ck.verify_all(df, f, n=2)
-        dc.verify_all(f, n=2)(df)
-
-
-def test_verify_any():
-    def f(x, n): return x > n
-    df = pd.DataFrame({'A': [1, 2, 3]})
-    tm.assert_frame_equal(df, ck.verify_any(df, f, 2))
-    tm.assert_frame_equal(df, ck.verify_any(df, f, n=2))
-
-    with pytest.raises(AssertionError):
-        ck.verify_any(df, f, n=4)
-        dc.verify_any(f, n=4)(df)
-
-
 def test_is_same_as():
     df = pd.DataFrame({'A': [1, 2, 3], 'B': [1, 2, 3]})
     df_equal = pd.DataFrame({'A': [1, 2, 3], 'B': [1, 2, 3]})
@@ -367,4 +330,47 @@ def test_multi_check():
                            warn=False)(_noop)(df)
     tm.assert_frame_equal(df, result)
 
+    def total_sum_not_equal(df, amt):
+        if amt == 51:
+            raise AssertionError("Test")
+        return True
+
+    result = ck.multi_check(df,
+                            checks={ck.has_no_nans: {"columns": None},
+                                    total_sum_not_equal: {"amt": 52}},
+                            warn=False)
+    tm.assert_frame_equal(df, result)
+
+    result = dc.MultiCheck(checks={ck.has_no_nans: {"columns": None},
+                                   total_sum_not_equal: {"amt": 52}},
+                           warn=False)(_noop)(df)
+    tm.assert_frame_equal(df, result)
+
+    with pytest.raises(AssertionError):
+        result = dc.MultiCheck(checks={ck.has_no_nans: {"columns": None},
+                                       total_sum_not_equal: {"amt": 51}},
+                               warn=False)(_noop)(df)
+
     # with pytest.raises(AssertionError):
+
+
+def test_custom_check():
+    def f(df, length):
+        if len(df) <= length:
+            raise AssertionError("df is not as long as expected.")  # must raise assertionerror
+        return df
+
+    df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
+
+    tm.assert_frame_equal(df, ck.custom_check(f, df=df, length=2))
+    tm.assert_frame_equal(df, ck.custom_check(f, df, 2))
+
+    # order is verify_func, verif_kwargs, decorated_func
+    tm.assert_frame_equal(df, dc.CustomCheck(f, length=2)(_noop)(df))
+    tm.assert_frame_equal(df, dc.CustomCheck(f, 2)(_noop)(df))
+
+    with pytest.raises(AssertionError):
+        ck.custom_check(f, df=df, length=4)
+
+    with pytest.raises(AssertionError):
+        dc.CustomCheck(f, 4)(_noop)(df)

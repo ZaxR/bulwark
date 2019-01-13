@@ -35,6 +35,7 @@ for the functions that make up your ETL pipeline, and lets you toss those checks
 on the functions you're already writing:
 
 .. code-block:: python
+
    import bulwark.decorators as dc
 
    @dc.IsShape(-1, 10)
@@ -48,6 +49,7 @@ on the functions you're already writing:
 Still want to have more robust test files? Bulwark's got you covered there, too, with importable functions.
 
 .. code-block:: python
+
    import bulwark.checks as ck
 
    df.pipe(ck.has_no_nans()) 
@@ -57,6 +59,7 @@ Won't I have to go clean up all those decorators when I'm ready to go to product
 Nope - just toggle the built-in debug_mode flag available for every decorator.
 
 .. code-block:: python
+
    @dc.IsShape((3, 2), enabled=False)
    def compute(df):
        # complex operations to determine result
@@ -64,20 +67,51 @@ Nope - just toggle the built-in debug_mode flag available for every decorator.
        return result_df
 
 What if the test I want isn't part of the library?
-Use the build-in `verify`, `verify_all`, `veryify_any` functions/decorators to use your own
-custom function!
+Use the build-in `CustomCheck` to use your own custom function!
 
 .. code-block:: python
-   def custom_check_func(df):
-       # some really special check
-       ...
-       return df
 
-   @dc.verify_all(custom_check_func)
-   def compute():
-       # complex operations to determine result
-       ...
-       return result_df
+  def len_longer_than(df, l):
+    if len(df) <= l:
+      raise AssertionError("df is not as long as expected.")
+    return df
+
+  @dc.CustomCheck(len_longer_than, df=df, l=6)
+  def append_a_df(df, df2):
+    return df.append(df2, ignore_index=True)
+
+  df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
+  df2 = pd.DataFrame({"a": [1, np.nan, 3, 4], "b": [4, 5, 6, 7]})
+
+  append_a_df(df, df2)
+
+
+What if I want to run a lot of tests and want to see all the errors at once?
+You can use the build-in `MultiCheck`. It will collect all of the errors and either
+display a warning message of throw an exception based on the `warn` flag.
+You can even use custom functions with MultiCheck:
+
+.. code-block:: python
+
+  def len_longer_than(df, l):
+    if len(df) <= l:
+      raise AssertionError("df is not as long as expected.")
+    return df
+
+  # `checks` takes a dict of function: dict of params for that function.
+  # Note that those function params EXCLUDE df.
+  # Also note that when you use MultiCheck, there's no need to use CustomCheck - just feed in the function.
+  @dc.MultiCheck(checks={ck.has_no_nans: {"columns": None},
+                         len_longer_than: {"l": 6}},
+                         warn=False)
+  def append_a_df(df, df2):
+    return df.append(df2, ignore_index=True)
+
+  df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
+  df2 = pd.DataFrame({"a": [1, np.nan, 3, 4], "b": [4, 5, 6, 7]})
+
+  append_a_df(df, df2)
+
 
 Check out :ref:`examples` to see more advanced usage.
 

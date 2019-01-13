@@ -29,7 +29,7 @@ dev_requires = ["Sphinx", "sphinx_rtd_theme"]
 name = "bulwark"
 copyright = "2019"
 version = '0.1'
-release = '0.1.1'
+release = '0.1.2'
 setup(
     name=name,
     version=release,

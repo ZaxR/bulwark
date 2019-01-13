@@ -81,30 +81,19 @@ class MultiCheck(BaseDecorator):
     check_func = staticmethod(ck.multi_check)
 
 
-def verify(func, *args, **kwargs):
-    """Assert that `func(df, *args, **kwargs)` is true."""
-    return _verify(func, None, *args, **kwargs)
-
-
-def verify_all(func, *args, **kwargs):
-    """Assert that all of `func(*args, **kwargs)` are true."""
-    return _verify(func, 'all', *args, **kwargs)
-
-
-def verify_any(func, *args, **kwargs):
-    """Assert that any of `func(*args, **kwargs)` are true."""
-    return _verify(func, 'any', *args, **kwargs)
-
-
-def _verify(func, _kind, *args, **kwargs):
-    d = {None: ck.verify, 'all': ck.verify_all, 'any': ck.verify_any}
-    vfunc = d[_kind]
-
+# todo: fit this into BaseDecorator paradigm
+# CustomCheck might need its own full class instead of using BaseDecorator
+def _custom_check(check_func, *args, **kwargs):
     def decorate(operation_func):
         @functools.wraps(operation_func)
         def wrapper(*operation_args, **operation_kwargs):
-            result = operation_func(*operation_args, **operation_kwargs)
-            vfunc(result, func, *args, **kwargs)
-            return result
+            df = operation_func(*operation_args, **operation_kwargs)
+            ck.custom_check(check_func, df, *args, **kwargs)
+            return df
         return wrapper
     return decorate
+
+
+def CustomCheck(check_func, *args, **kwargs):
+    """Assert that `func(df, *args, **kwargs)` is true."""
+    return _custom_check(check_func, *args, **kwargs)
