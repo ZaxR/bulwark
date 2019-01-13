@@ -12,7 +12,7 @@ import pandas as pd
 import pandas.util.testing as tm
 import six
 
-from bulwark.generic import bad_locations, verify, verify_all, verify_any
+from bulwark.generic import bad_locations  # , verify, verify_all, verify_any
 
 
 def is_shape(df, shape):
@@ -109,22 +109,17 @@ def has_no_neg_infs(df, columns=None):
 
 
 def is_monotonic(df, items=None, increasing=None, strict=False):
-    """
-    Asserts that the DataFrame is monotonic.
+    """Asserts that the `df` is monotonic.
 
-    Parameters
-    ==========
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        items (dict): Mapping of columns to conditions (increasing, strict)
+        increasing (bool, None): None is either increasing or decreasing.
+        strict (bool): Whether the comparison should be strict.
 
-    df : Series or DataFrame
-    items : dict
-        mapping columns to conditions (increasing, strict)
-    increasing : None or bool
-        None is either increasing or decreasing.
-    strict : whether the comparison should be strict
+    Returns:
+        Original `df`.
 
-    Returns
-    =======
-    df : DataFrame
     """
     if items is None:
         items = {k: (increasing, strict) for k in df}
@@ -151,19 +146,15 @@ def is_monotonic(df, items=None, increasing=None, strict=False):
 
 
 def unique(df, columns=None):
-    """
-    Asserts that columns in the DataFrame only have unique values.
+    """Asserts that columns in `df` only have unique values.
 
-    Parameters
-    ----------
-    df : DataFrame
-    columns : list
-      list of columns to restrict the check to. If None, check all columns.
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        columns (list): A subset of columns to check for uniqueness of row values.
 
-    Returns
-    -------
-    df : DataFrame
-      same as the original
+    Returns:
+        Original `df`.
+
     """
     if columns is None:
         columns = df.columns
@@ -174,16 +165,14 @@ def unique(df, columns=None):
 
 
 def unique_index(df):
-    """
-    Assert that the index is unique
+    """Asserts that `df`'s index is unique.
 
-    Parameters
-    ==========
-    df : DataFrame
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
 
-    Returns
-    =======
-    df : DataFrame
+    Returns:
+        Original `df`.
+
     """
     try:
         assert df.index.is_unique
@@ -194,63 +183,53 @@ def unique_index(df):
 
 
 def within_set(df, items=None):
-    """
-    Assert that df is a subset of items
+    """Asserts that `df` is a subset of items.
 
-    Parameters
-    ==========
-    df : DataFrame
-    items : dict
-      mapping of columns (k) to array-like of values (v) that
-      ``df[k]`` is expected to be a subset of
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        items (dict): Mapping of columns (col) to array-like of values (v) that
+                      ``df[col]`` is expected to be a subset of.
 
-    Returns
-    =======
-    df : DataFrame
+    Returns:
+        Original `df`.
+
     """
-    for k, v in items.items():
-        if not df[k].isin(v).all():
-            bad = df.loc[~df[k].isin(v), k]
+    for col, v in items.items():
+        if not df[col].isin(v).all():
+            bad = df.loc[~df[col].isin(v), col]
             raise AssertionError('Not in set', bad)
     return df
 
 
 def within_range(df, items=None):
-    """
-    Assert that a DataFrame is within a range.
+    """Asserts that `df` is within a range.
 
-    Parameters
-    ==========
-    df : DataFame
-    items : dict
-      mapping of columns (k) to a (low, high) tuple (v)
-      that ``df[k]`` is expected to be between.
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        items (dict): Mapping of columns (col) to a (low, high) tuple (v) that
+                      ``df[col]`` is expected to be between.
 
-    Returns
-    =======
-    df : DataFrame
+    Returns:
+        Original `df`.
+
     """
-    for k, (lower, upper) in items.items():
-        if (lower > df[k]).any() or (upper < df[k]).any():
-            bad = (lower > df[k]) | (upper < df[k])
+    for col, (lower, upper) in items.items():
+        if (lower > df[col]).any() or (upper < df[col]).any():
+            bad = (lower > df[col]) | (upper < df[col])
             raise AssertionError("Outside range", bad)
     return df
 
 
 def within_n_std(df, n=3):
-    """
-    Assert that every value is within ``n`` standard
-    deviations of its column's mean.
+    """Asserts that every value is within ``n`` standard deviations of its column's mean.
 
-    Parameters
-    ==========
-    df : DataFame
-    n : int
-      number of standard deviations from the mean
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        n (int): Number of standard deviations from the mean.
 
-    Returns
-    =======
-    df : DataFrame
+    Returns:
+        Original `df`.
+
     """
     means = df.mean()
     stds = df.std()
@@ -262,46 +241,38 @@ def within_n_std(df, n=3):
 
 
 def has_dtypes(df, items):
-    """
-    Assert that a DataFrame has ``dtypes``
+    """Asserts that `df` has ``dtypes``
 
-    Parameters
-    ==========
-    df: DataFrame
-    items: dict
-      mapping of columns to dtype.
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        items (dict): Mapping of columns to dtype.
 
-    Returns
-    =======
-    df : DataFrame
+    Returns:
+        Original `df`.
+
     """
     dtypes = df.dtypes
-    for k, v in items.items():
-        if not dtypes[k] == v:
-            raise AssertionError("{} has the wrong dtype. Should be ({}), is ({})".format(k, v, dtypes[k]))
+    for col, dtype in items.items():
+        if not dtypes[col] == dtype:
+            raise AssertionError("{} has the wrong dtype. Should be ({}), is ({})".format(col, dtype, dtypes[col]))
     return df
 
 
 def one_to_many(df, unitcol, manycol):
-    """
-    Assert that a many-to-one relationship is preserved between two
-    columns. For example, a retail store will have have distinct
-    departments, each with several employees. If each employee may
-    only work in a single department, then the relationship of the
+    """Asserts that a many-to-one relationship is preserved between two columns.
+
+    For example, a retail store will have have distinct departments, each with several employees.
+    If each employee may only work in a single department, then the relationship of the
     department to the employees is one to many.
 
-    Parameters
-    ==========
-    df : DataFrame
-    unitcol : str
-        The column that encapulates the groups in ``manycol``.
-    manycol : str
-        The column that must remain unique in the distict pairs
-        between ``manycol`` and ``unitcol``
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        unitcol (str): The column that encapulates the groups in ``manycol``.
+        manycol (str): The column that must remain unique in the distict pairs
+                       between ``manycol`` and ``unitcol``.
 
-    Returns
-    =======
-    df : DataFrame
+    Returns:
+        Original `df`.
 
     """
     subset = df[[manycol, unitcol]].drop_duplicates()
@@ -314,19 +285,15 @@ def one_to_many(df, unitcol, manycol):
 
 
 def is_same_as(df, df_to_compare, **kwargs):
-    """
-    Assert that two pandas dataframes are the equal
+    """Asserts that two pd.DataFrames are equal.
 
-    Parameters
-    ==========
-    df : pandas DataFrame
-    df_to_compare : pandas DataFrame
-    **kwargs : dict
-        keyword arguments passed through to panda's ``assert_frame_equal``
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        df_to_compare (pd.DataFrame): A second pd.DataFrame.
+        **kwargs (dict): Keyword arguments passed through to pandas' ``assert_frame_equal``.
 
-    Returns
-    =======
-    df : DataFrame
+    Returns:
+        Original `df`.
 
     """
     try:
@@ -337,6 +304,19 @@ def is_same_as(df, df_to_compare, **kwargs):
 
 
 def multi_check(df, checks, warn=False):
+    """Asserts that all checks pass.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        checks (dict): Mapping of check functions to parameters for those check functions.
+        warn (bool): Indicates whether an error should be raised
+                     or only a warning notification should be displayed.
+                     Default is to error.
+
+    Returns:
+        Original `df`.
+
+    """
     error_msgs = []
     for func, params in checks.items():
         try:

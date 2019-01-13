@@ -82,23 +82,17 @@ class MultiCheck(BaseDecorator):
 
 
 def verify(func, *args, **kwargs):
-    """
-    Assert that `func(df, *args, **kwargs)` is true.
-    """
+    """Assert that `func(df, *args, **kwargs)` is true."""
     return _verify(func, None, *args, **kwargs)
 
 
 def verify_all(func, *args, **kwargs):
-    """
-    Assert that all of `func(*args, **kwargs)` are true.
-    """
+    """Assert that all of `func(*args, **kwargs)` are true."""
     return _verify(func, 'all', *args, **kwargs)
 
 
 def verify_any(func, *args, **kwargs):
-    """
-    Assert that any of `func(*args, **kwargs)` are true.
-    """
+    """Assert that any of `func(*args, **kwargs)` are true."""
     return _verify(func, 'any', *args, **kwargs)
 
 

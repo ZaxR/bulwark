@@ -12,7 +12,10 @@ Create a feature branch off of the develop branch:
    git checkout develop
    git checkout -b feature/<snake_case_feature_name>
 
-Rebuild the docs in your local version using 
+Docstrings and tests required for any new functions/classes/modules.
+Plesae use Google-formatted docstrings.
+
+Rebuild the docs in your local version using:
 
 .. code:: bash
    sphinx-apidoc -o ./docs/_source ./bulwark

@@ -10,7 +10,7 @@ Bulwark's Documentation
 Bulwark is a package for convenient property-based testing of pandas dataframes, supported for Python 3.5+.
 
 This project was heavily influenced by the no-longer-supported `Engarde`_. library
-by Tom Augspurger (thanks for the head start, Tom!), which in term was modeled after
+by Tom Augspurger (thanks for the head start, Tom!), which itself was modeled after
 the R library `assertr`_.
 
 .. _Engarde: https://github.com/TomAugspurger/engarde
@@ -37,9 +37,9 @@ on the functions you're already writing:
 .. code-block:: python
    import bulwark.decorators as dc
 
-   @dc.is_shape(-1, 10)
-   @dc.is_monotonic(strict=True)
-   @dc.none_missing()
+   @dc.IsShape(-1, 10)
+   @dc.IsMonotonic(strict=True)
+   @dc.HasNoNans()
    def compute(df):
        # complex operations to determine result
        ...
@@ -50,14 +50,14 @@ Still want to have more robust test files? Bulwark's got you covered there, too,
 .. code-block:: python
    import bulwark.checks as ck
 
-   df.pipe(ck.none_missing())
-   
+   df.pipe(ck.has_no_nans()) 
+
 
 Won't I have to go clean up all those decorators when I'm ready to go to production?
 Nope - just toggle the built-in debug_mode flag available for every decorator.
 
 .. code-block:: python
-   @dc.is_shape((3, 2), debug_mode=False)
+   @dc.IsShape((3, 2), enabled=False)
    def compute(df):
        # complex operations to determine result
        ...

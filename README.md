@@ -46,10 +46,10 @@ Still want to have more robust test files? Bulwark's got you covered there, too,
    df.pipe(ck.has_no_nans()) 
 ```
 Won't I have to go clean up all those decorators when I'm ready to go to production?
-Nope - just toggle the built-in debug_mode flag available for every decorator.
+Nope - just toggle the built-in "enabled" flag available for every decorator.
 
 ```python
-   @dc.IsShape((3, 2), debug_mode=False)
+   @dc.IsShape((3, 2), enabled=False)
    def compute(df):
        # complex operations to determine result
        ...
@@ -78,19 +78,18 @@ Roadmap
 =======
 
 - Fix bug: MultiCheck is broken
-- Add to pypi
-- Add travis build server
 - Implement class factory
 - Fix/Improve documentation
   - inherit BaseDecorator and the functions' docstrings w/ __doc__
   - rewrite design.rst and examples.rst
   - Demo how to use with read files from csv; write func to import, decorate with dc.funcs
-- Refactor warn functionality, adding to all functions/decorators
-  - Add warn hook for desired effect if not error
 - Improve error message outputs
   - Possibly JSON format
+- Refactor warn functionality, adding to all functions/decorators
+  - Add warn hook for desired effect if not error
 - Add functions for:
   - has_col_order,
   - has_cols,
   - Add check for object type columns that all values are of a python type (e.g. all str),
   - Check incrementing/complete index
+- Add automatic changelogs
