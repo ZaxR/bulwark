@@ -77,7 +77,6 @@ Check out [examples](https://bulwark.readthedocs.io/en/latest/examples.html) to 
 Roadmap
 =======
 
-- Fix bug: MultiCheck is broken
 - Implement class factory
 - Fix/Improve documentation
   - inherit BaseDecorator and the functions' docstrings w/ __doc__
@@ -87,6 +86,7 @@ Roadmap
   - Possibly JSON format
 - Refactor warn functionality, adding to all functions/decorators
   - Add warn hook for desired effect if not error
+- Refactor funcs, starting with verify
 - Add functions for:
   - has_col_order,
   - has_cols,

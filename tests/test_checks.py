@@ -357,14 +357,14 @@ def test_is_same_as_with_kwargs():
 def test_multi_check():
     df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
     result = ck.multi_check(df,
-                            checks={ck.has_no_nans: {"df": df, "columns": None},
-                                    ck.is_shape: {"df": df, "shape": (3, 2)}},
+                            checks={ck.has_no_nans: {"columns": None},
+                                    ck.is_shape: {"shape": (3, 2)}},
                             warn=False)
     tm.assert_frame_equal(df, result)
-    # with pytest.raises(AssertionError):
 
-    # todo test multi_check decorator
-    result = dc.MultiCheck(checks={ck.has_no_nans: {"df": df, "columns": None},
-                                   ck.is_shape: {"df": df, "shape": (3, 2)}},
+    result = dc.MultiCheck(checks={ck.has_no_nans: {"columns": None},
+                                   ck.is_shape: {"shape": (3, 2)}},
                            warn=False)(_noop)(df)
     tm.assert_frame_equal(df, result)
+
+    # with pytest.raises(AssertionError):
