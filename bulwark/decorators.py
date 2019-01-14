@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 import functools
-import inspect
+import sys
+from inspect import getfullargspec, getmembers, isfunction
 
 import bulwark.checks as ck
+from bulwark.generic import snake_to_camel
 
 
 class BaseDecorator(object):
     def __init__(self, *args, **kwargs):  # how to take args in decorator..?
         self.enabled = True  # setter to enforce bool would be a lot safer, but challenge w/ decorator
         # self.warn = False ? No - put at func level for all funcs and pass through
-        self.params = inspect.getfullargspec(self.check_func).args[1:]
+        self.params = getfullargspec(self.check_func).args[1:]
 
         self.__dict__.update(dict(zip(self.params, args)))
         self.__dict__.update(**kwargs)
@@ -25,64 +27,29 @@ class BaseDecorator(object):
         return decorated
 
 
-class HasDtypes(BaseDecorator):
-    check_func = staticmethod(ck.has_dtypes)
+def decorator_factory(decorator_name, func):
+    """Takes in a function and outputs a class that can be used as a decorator."""
+    class decorator_name(BaseDecorator):
+        check_func = staticmethod(func)
+
+    return decorator_name
 
 
-class HasNoNans(BaseDecorator):
-    check_func = staticmethod(ck.has_no_nans)
+# Automatically creates decorators for each function in bulwark.checks
+this_module = sys.modules[__name__]
+check_functions = [func[1] for func in getmembers(ck, isfunction) if func[1].__module__ == 'bulwark.checks']
+
+for func in check_functions:
+    decorator_name = snake_to_camel(func.__name__)
+    setattr(this_module, decorator_name, decorator_factory(decorator_name, func))
 
 
-class HasNoInfs(BaseDecorator):
-    check_func = staticmethod(ck.has_no_infs)
+""" ToDo: fit this into BaseDecorator paradigm
 
+CustomCheck might need its own full class instead of using BaseDecorator
+This code is below the auto-generation of decorators, so this overwrites the auto-generated CustomCheck.
 
-class HasNoNegInfs(BaseDecorator):
-    check_func = staticmethod(ck.has_no_neg_infs)
-
-
-class IsMonotonic(BaseDecorator):
-    check_func = staticmethod(ck.is_monotonic)
-
-
-class IsSameAs(BaseDecorator):
-    check_func = staticmethod(ck.is_same_as)
-
-
-class IsShape(BaseDecorator):
-    check_func = staticmethod(ck.is_shape)
-
-
-class OneToMany(BaseDecorator):
-    check_func = staticmethod(ck.one_to_many)
-
-
-class Unique(BaseDecorator):
-    check_func = staticmethod(ck.unique)
-
-
-class UniqueIndex(BaseDecorator):
-    check_func = staticmethod(ck.unique_index)
-
-
-class WithinNStd(BaseDecorator):
-    check_func = staticmethod(ck.within_n_std)
-
-
-class WithinRange(BaseDecorator):
-    check_func = staticmethod(ck.within_range)
-
-
-class WithinSet(BaseDecorator):
-    check_func = staticmethod(ck.within_set)
-
-
-class MultiCheck(BaseDecorator):
-    check_func = staticmethod(ck.multi_check)
-
-
-# todo: fit this into BaseDecorator paradigm
-# CustomCheck might need its own full class instead of using BaseDecorator
+"""
 def _custom_check(check_func, *args, **kwargs):
     def decorate(operation_func):
         @functools.wraps(operation_func)
