@@ -106,7 +106,6 @@ Check out [examples](https://bulwark.readthedocs.io/en/latest/examples.html) to 
 Roadmap
 =======
 
-- Implement class factory
 - Fix / Improve documentation
   - inherit BaseDecorator and the functions' docstrings w / `__doc__`
   - rewrite design.rst and examples.rst
@@ -116,6 +115,7 @@ Roadmap
   - Possibly JSON format
 - Refactor warn functionality, adding to all functions / decorators
   - Add warn hook for desired effect if not error
+  - Use the warnings library? https://docs.python.org/3/library/warnings.html
 - Add functions for:
   - has_col_order,
   - has_cols,
