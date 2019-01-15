@@ -8,6 +8,15 @@ from bulwark.generic import snake_to_camel
 
 
 class BaseDecorator(object):
+    """Turns a given function into a decorator.
+
+    Args:
+        enabled (bool): Determines if the decorator (check function) will be run.
+        *args: Arguments to pass through to the check function.
+        **kwargs: Keyword arguments to pass through to the check function.
+
+    """
+
     def __init__(self, *args, **kwargs):  # how to take args in decorator..?
         self.enabled = True  # setter to enforce bool would be a lot safer, but challenge w/ decorator
         # self.warn = False ? No - put at func level for all funcs and pass through
@@ -30,6 +39,10 @@ class BaseDecorator(object):
 def decorator_factory(decorator_name, func):
     """Takes in a function and outputs a class that can be used as a decorator."""
     class decorator_name(BaseDecorator):
+        # todo add the fact that it's a decorated version of func
+        # todo remove df from the functions arg list, since it's automatically fed to the decorated version
+        # todo overwrite Returns
+        __doc__ = func.__doc__
         check_func = staticmethod(func)
 
     return decorator_name
@@ -50,6 +63,8 @@ CustomCheck might need its own full class instead of using BaseDecorator
 This code is below the auto-generation of decorators, so this overwrites the auto-generated CustomCheck.
 
 """
+
+
 def _custom_check(check_func, *args, **kwargs):
     def decorate(operation_func):
         @functools.wraps(operation_func)
