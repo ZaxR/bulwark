@@ -42,6 +42,15 @@ def decorator_factory(decorator_name, func):
         # todo add the fact that it's a decorated version of func
         # todo remove df from the functions arg list, since it's automatically fed to the decorated version
         # todo overwrite Returns
+
+        # docstring = func.__doc__
+        # begin_df = docstring.find("df (pd.DataFrame):")
+        # # identifies white spaces before begin_df, but after the new line
+        # new_sec_whitespace = docstring[begin_df - docstring[begin_df - 1::-1].find("\n"): begin_df]
+        # rgx = f"(\n { {len(new_sec_whitespace)} })[^\s]"
+        # end_df = begin_df + re.search(rgx, docstring[begin_df:]).start() + 1
+        # __doc__ = docstring[:begin_df] + docstring[end_df + len(new_sec_whitespace):]
+
         __doc__ = func.__doc__
         check_func = staticmethod(func)
 
