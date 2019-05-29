@@ -15,3 +15,12 @@ install:
 # Run test
 script:
   - pytest tests
+
+# Auto-deploy to pypi
+deploy:
+  provider: pypi
+  user: "zaxr"
+  password:
+    secure: cymbk5efzsmE4rgDkcAgO64ePAo+fQ1NlA1ennqeuxBCh5SUwAajSdeYBRYpMXEs/LZUuoA00xfGDVK3fW8DsOnzVr7tANZZblAnr28Xs3boWVzXuVEEb7JbZe1SHZQz96U/AVbGvXvRLB4aYHb5sd+EVc6CeCSw2oYCJOFxyncqm8IfthNPPChb0X3K0lJkJNQm7/xJ1g5/BOOfjhGTSOBKFJk4StnTzcgTSGQA/dMijJ2tHoGq7XH8TpxYU3WARHz3O6WfFDxdOfXTT97TKN6VIgrzH8QCtd55PVYFM+j6I9WPxbSb55HbOwAmPiOZK5ieeMz+na+DET3ZcUIFjuOBWT8hG7t74v9o78aBNST6yLin868zbGSry3Aib2wtazOLoynCZnIKgzPuGb9So9FQyDi6Gry2di0LnxZ8UvFnRvGt4zVSMj93U7JhgOc9mTMKyfP2L/kCNTOtzzBWbfBiT0Rn41v6tK6+scMT/42PQsAiPsBcIvb/vai+hAV4vvWzQg12+jONa8QzLUJWS51JSquswSP1PZMDA/pGuTeSHSdC6DCi2qxkZ6xv42l/bZPojeuSkYIf1CuICYgGmWp7+3oYzFBQrkkWIdl726xpRTS8tmauak2cS+txZfZqyRFABmjs9yuPFA3622rp+h9oARw7Q2+TJ7HiN0VosJU=
+  on:
+    branch: master
