@@ -33,10 +33,10 @@ def has_columns(df, columns, exact=True):
 
     msg = ''
     if missing_cols:
-        msg += f"df is missing columns: {missing_cols}. "
+        msg += "df is missing columns: {}.".format(missing_cols)
 
     if exact and unexpected_extra_cols:
-        msg += f"df has extra columns: {unexpected_extra_cols}."
+        msg += "df has extra columns: {}.".format(unexpected_extra_cols)
 
     if msg:
         raise AssertionError(msg)
