@@ -28,13 +28,14 @@ dev_requires = ["Sphinx", "sphinx_rtd_theme"]
 
 name = "bulwark"
 copyright = "2019"
-version = '0.1'
-release = '0.1.2'
+version = '0.2'
+release = '0.2.0'
 setup(
     name=name,
     version=release,
     description='A python package for defensive data analysis.',
     long_description=readme,
+    long_description_content_type='text/markdown',
     url="https://github.com/zaxr/bulwark",
     author="Zax Rosenberg",
     author_email="zaxr@protonmail.com",

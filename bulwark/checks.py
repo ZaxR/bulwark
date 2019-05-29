@@ -15,27 +15,32 @@ import six
 from bulwark.generic import bad_locations
 
 
-def is_shape(df, shape):
-    """Asserts that `df` is of a known row x column `shape`.
+def has_columns(df, columns, exact=True):
+    """Asserts that `df` has ``columns``
 
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
-        shape (tuple): Shape of `df` as (n_rows, n_columns).
-                       Use None or -1 if you don't care about a specific dimension.
+        columns (list or tuple): Columns that are expected to be in ``df``.
+        exact (bool): Whether or not ``columns`` should be the only columns in ``df``.
 
     Returns:
         Original `df`.
 
     """
-    try:
-        check = np.all(np.equal(df.shape, shape) | (np.equal(shape, [-1, -1]) |
-                                                    np.equal(shape, [None, None])))
-        assert check
-    except AssertionError as e:
-        msg = ("Expected shape: {}\n"
-               "\t\tActual shape:   {}".format(shape, df.shape))
-        e.args = (msg,)
-        raise
+    df_cols = df.columns
+    unexpected_extra_cols = list(set(columns).difference(df_cols))
+    missing_cols = list(set(df_cols).difference(columns))
+
+    msg = ''
+    if missing_cols:
+        msg += f"df is missing columns: {missing_cols}. "
+
+    if exact and unexpected_extra_cols:
+        msg += f"df has extra columns: {unexpected_extra_cols}."
+
+    if msg:
+        raise AssertionError(msg)
+
     return df
 
 
@@ -108,6 +113,24 @@ def has_no_neg_infs(df, columns=None):
     return df
 
 
+def has_unique_index(df):
+    """Asserts that `df`'s index is unique.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+
+    Returns:
+        Original `df`.
+
+    """
+    try:
+        assert df.index.is_unique
+    except AssertionError as e:
+        e.args = df.index[df.index.duplicated()].unique()
+        raise
+    return df
+
+
 def is_monotonic(df, items=None, increasing=None, strict=False):
     """Asserts that the `df` is monotonic.
 
@@ -145,6 +168,30 @@ def is_monotonic(df, items=None, increasing=None, strict=False):
     return df
 
 
+def is_shape(df, shape):
+    """Asserts that `df` is of a known row x column `shape`.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        shape (tuple): Shape of `df` as (n_rows, n_columns).
+                       Use None or -1 if you don't care about a specific dimension.
+
+    Returns:
+        Original `df`.
+
+    """
+    try:
+        check = np.all(np.equal(df.shape, shape) | (np.equal(shape, [-1, -1]) |
+                                                    np.equal(shape, [None, None])))
+        assert check
+    except AssertionError as e:
+        msg = ("Expected shape: {}\n"
+               "\t\tActual shape:   {}".format(shape, df.shape))
+        e.args = (msg,)
+        raise
+    return df
+
+
 def unique(df, columns=None):
     """Asserts that columns in `df` only have unique values.
 
@@ -161,24 +208,6 @@ def unique(df, columns=None):
     for col in columns:
         if not df[col].is_unique:
             raise AssertionError("Column {!r} contains non-unique values".format(col))
-    return df
-
-
-def unique_index(df):
-    """Asserts that `df`'s index is unique.
-
-    Args:
-        df (pd.DataFrame): Any pd.DataFrame.
-
-    Returns:
-        Original `df`.
-
-    """
-    try:
-        assert df.index.is_unique
-    except AssertionError as e:
-        e.args = df.index[df.index.duplicated()].unique()
-        raise
     return df
 
 
