@@ -24,7 +24,7 @@ Installation
 =============
 
 ```bash
-   pip install bulwark
+pip install bulwark
 ```
 
 
