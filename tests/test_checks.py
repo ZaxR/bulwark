@@ -82,14 +82,14 @@ def test_unique():
 
 def test_unique_index():
     df = pd.DataFrame([1, 2, 3], index=['a', 'b', 'c'])
-    tm.assert_frame_equal(df, ck.unique_index(df))
-    result = dc.UniqueIndex()(_add_n)(df)
+    tm.assert_frame_equal(df, ck.has_unique_index(df))
+    result = dc.HasUniqueIndex()(_add_n)(df)
     tm.assert_frame_equal(result, df + 1)
 
     with pytest.raises(AssertionError):
-        ck.unique_index(df.reindex(['a', 'a', 'b']))
+        ck.has_unique_index(df.reindex(['a', 'a', 'b']))
     with pytest.raises(AssertionError):
-        dc.UniqueIndex()(_add_n)(df.reindex(['a', 'a', 'b']))
+        dc.HasUniqueIndex()(_add_n)(df.reindex(['a', 'a', 'b']))
 
 
 def test_monotonic_increasing_lax():

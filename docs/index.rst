@@ -27,6 +27,14 @@ that your data meets your assumptions of what it should look like at any (and ev
 in your code, without making you work too hard.
 
 
+Installation
+--------------
+
+.. code:: bash
+
+   pip install bulwark
+
+
 Usage
 =====
 
@@ -122,6 +130,7 @@ Contents
 .. toctree::
    :hidden:
    
+   changelog
    installation
    quickstart
    design

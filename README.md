@@ -20,6 +20,14 @@ that your data meets your assumptions of what it should look like at any(and eve
 in your code, without making you work too hard.
 
 
+Installation
+=============
+
+```bash
+   pip install bulwark
+```
+
+
 Usage
 =====
 

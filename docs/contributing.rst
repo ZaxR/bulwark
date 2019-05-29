@@ -26,3 +26,7 @@ Rebuild the docs in your local version using:
   make html
 
 Create a PR to the develop branch.
+
+Tests will be be triggered to run via `Travis CI`_.
+
+.. _Travis CI: https://travis-ci.com/ZaxR/bulwark
