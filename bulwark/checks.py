@@ -15,31 +15,47 @@ import six
 from bulwark.generic import bad_locations
 
 
-def has_columns(df, columns, exact=True):
+def has_columns(df, columns, exact_cols=False, exact_order=False):
     """Asserts that `df` has ``columns``
 
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
         columns (list or tuple): Columns that are expected to be in ``df``.
-        exact (bool): Whether or not ``columns`` should be the only columns in ``df``.
+        exact_cols (bool): Whether or not ``columns`` need to be the only columns in ``df``.
+        exact_order (bool): Whether or not ``columns`` need to be in the same order as the columns in ``df``.
 
     Returns:
         Original `df`.
 
     """
     df_cols = df.columns
-    unexpected_extra_cols = list(set(columns).difference(df_cols))
-    missing_cols = list(set(df_cols).difference(columns))
+    msg = []
 
-    msg = ''
+    missing_cols = list(set(columns).difference(df_cols))
     if missing_cols:
-        msg += "df is missing columns: {}.".format(missing_cols)
+        msg.append("`df` is missing columns: {}.".format(missing_cols))
 
-    if exact and unexpected_extra_cols:
-        msg += "df has extra columns: {}.".format(unexpected_extra_cols)
+    if exact_cols:
+        unexpected_extra_cols = list(set(df_cols).difference(columns))
+        if unexpected_extra_cols:
+            msg.append("`df` has extra columns: {}.".format(unexpected_extra_cols))
+
+    if exact_order:
+        if missing_cols:
+            msg.append("`df` column order does not match given `columns` order, because columns are missing.")
+        else:
+            # idx_order = [columns.index(df.columns[i]) for i in range(len(columns))]
+            idx_order = []
+            for i in range(len(columns)):
+                try:
+                    idx_order.append(columns.index(df.columns[i]))
+                except ValueError:
+                    pass
+            if idx_order != sorted(idx_order):
+                msg.append("`df` column order does not match given `columns` order.")
 
     if msg:
-        raise AssertionError(msg)
+        raise AssertionError(" ".join(msg))
 
     return df
 

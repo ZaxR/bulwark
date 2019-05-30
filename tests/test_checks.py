@@ -16,6 +16,22 @@ def _noop(df):
     return df
 
 
+@pytest.mark.parametrize("df,columns,exact_cols,exact_order",
+                         [(pd.DataFrame({"a": [1], "b": [2], "c": [3]}), ["a", "b", "c"], True, True),
+                          (pd.DataFrame({"a": [1], "b": [2], "c": [3]}), ["a", "b"], False, False),
+                          (pd.DataFrame({"a": [1], "b": [2], "c": [3]}), ["a", "b"], False, True),
+                          (pd.DataFrame({"a": [1], "b": [2], "c": [3]}), ["b", "c"], False, True),
+                          pytest.param(pd.DataFrame({"a": [1], "b": [2], "c": [3]}),
+                                       ["a", "b"], True, True, marks=pytest.mark.xfail),
+                          pytest.param(pd.DataFrame({"a": [1], "b": [2], "c": [3]}),
+                                       ["b", "a"], False, True, marks=pytest.mark.xfail),
+                          pytest.param(pd.DataFrame({"a": [1], "b": [2], "c": [3]}),
+                                       ["w", "b", "a"], False, True, marks=pytest.mark.xfail)]
+                         )
+def test_has_columns(df, columns, exact_cols, exact_order):
+    ck.has_columns(df, columns, exact_cols, exact_order)
+
+
 def test_is_shape():
     shape = 10, 2
     ig_0 = -1, 2
