@@ -1,1 +1,2 @@
-name = "bulwark"
+__name__ = "bulwark"
+__version__ = "0.3.0"
