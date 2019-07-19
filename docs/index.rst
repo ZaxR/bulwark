@@ -46,7 +46,7 @@ on the functions you're already writing:
 
    import bulwark.decorators as dc
 
-   @dc.IsShape(-1, 10)
+   @dc.IsShape((-1, 10))
    @dc.IsMonotonic(strict=True)
    @dc.HasNoNans()
    def compute(df):
