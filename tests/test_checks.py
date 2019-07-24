@@ -62,6 +62,17 @@ def test_is_shape():
         dc.IsShape(shape=(9, 2), cheese=True)(_add_n)(df)  # bad dc param check
 
 
+def test_has_no_x():
+    df = pd.DataFrame([1, 2, 3], index=['a', 'b', 'c'])
+    result = ck.has_no_x(df, values=['x', 'y', 'z'])
+    tm.assert_frame_equal(df, result)
+
+    result = dc.HasNoX()(_add_n)(df, 2)
+    tm.assert_frame_equal(result, df + 2)
+    result = dc.HasNoX()(_add_n)(df, n=2)
+    tm.assert_frame_equal(result, df + 2)
+
+
 def test_has_no_nans():
     df = pd.DataFrame(np.random.randn(5, 3))
     result = ck.has_no_nans(df)
@@ -70,6 +81,39 @@ def test_has_no_nans():
     result = dc.HasNoNans()(_add_n)(df, 2)
     tm.assert_frame_equal(result, df + 2)
     result = dc.HasNoNans()(_add_n)(df, n=2)
+    tm.assert_frame_equal(result, df + 2)
+
+
+def test_has_no_nones():
+    df = pd.DataFrame(np.random.randn(5, 3))
+    result = ck.has_no_nones(df)
+    tm.assert_frame_equal(df, result)
+
+    result = dc.HasNoNones()(_add_n)(df, 2)
+    tm.assert_frame_equal(result, df + 2)
+    result = dc.HasNoNones()(_add_n)(df, n=2)
+    tm.assert_frame_equal(result, df + 2)
+
+
+def test_has_no_infs():
+    df = pd.DataFrame(np.random.randn(5, 3))
+    result = ck.has_no_infs(df)
+    tm.assert_frame_equal(df, result)
+
+    result = dc.HasNoInfs()(_add_n)(df, 2)
+    tm.assert_frame_equal(result, df + 2)
+    result = dc.HasNoInfs()(_add_n)(df, n=2)
+    tm.assert_frame_equal(result, df + 2)
+
+
+def test_has_no_neg_infs():
+    df = pd.DataFrame(np.random.randn(5, 3))
+    result = ck.has_no_neg_infs(df)
+    tm.assert_frame_equal(df, result)
+
+    result = dc.HasNoNegInfs()(_add_n)(df, 2)
+    tm.assert_frame_equal(result, df + 2)
+    result = dc.HasNoNegInfs()(_add_n)(df, n=2)
     tm.assert_frame_equal(result, df + 2)
 
 

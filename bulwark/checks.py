@@ -60,8 +60,35 @@ def has_columns(df, columns, exact_cols=False, exact_order=False):
     return df
 
 
+def has_no_x(df, values=None, columns=None):
+    """Asserts that there are no user-specified `values` in `df`'s `columns`.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        values (list): A list of values to check for in the pd.DataFrame.
+        columns (list): A subset of columns to check for `values`.
+
+    Returns:
+        Original `df`.
+
+    """
+    values = values if values is not None else []
+    columns = columns if columns is not None else df.columns
+
+    try:
+        assert not df[columns].isin(values).values.any()
+    except AssertionError as e:
+        missing = df[columns].isin(values)
+        msg = bad_locations(missing)
+        e.args = msg
+        raise
+    return df
+
+
 def has_no_nans(df, columns=None):
     """Asserts that there are no np.nans in `df`.
+
+    This is a convenience wrapper for `has_no_x`.
 
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
@@ -71,62 +98,55 @@ def has_no_nans(df, columns=None):
         Original `df`.
 
     """
-    if columns is None:
-        columns = df.columns
-    try:
-        assert not df[columns].isnull().values.any()
-    except AssertionError as e:
-        missing = df[columns].isnull()
-        msg = bad_locations(missing)
-        e.args = msg
-        raise
-    return df
+    return has_no_x(df, values=[np.nan], columns=columns)
+
+
+def has_no_nones(df, columns=None):
+    """Asserts that there are no Nones in `df`.
+
+    This is a convenience wrapper for `has_no_x`.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        columns (list): A subset of columns to check for Nones.
+
+    Returns:
+        Original `df`.
+
+    """
+    return has_no_x(df, values=[None], columns=columns)
 
 
 def has_no_infs(df, columns=None):
     """Asserts that there are no np.infs in `df`.
 
+    This is a convenience wrapper for `has_no_x`.
+
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
-        columns (list): A subset of columns to check for np.nans.
+        columns (list): A subset of columns to check for np.infs.
 
     Returns:
         Original `df`.
 
     """
-    if columns is None:
-        columns = df.columns
-    try:
-        assert not df[columns].isin([np.inf]).values.any()
-    except AssertionError as e:
-        missing = df[columns].isin([np.inf])
-        msg = bad_locations(missing)
-        e.args = msg
-        raise
-    return df
+    return has_no_x(df, values=[np.inf], columns=columns)
 
 
 def has_no_neg_infs(df, columns=None):
     """Asserts that there are no np.infs in `df`.
 
+    This is a convenience wrapper for `has_no_x`.
+
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
-        columns (list): A subset of columns to check for np.nans.
+        columns (list): A subset of columns to check for -np.infs.
 
     Returns:
         Original `df`.
 
     """
-    if columns is None:
-        columns = df.columns
-    try:
-        assert not df[columns].isin([-np.inf]).values.any()
-    except AssertionError as e:
-        missing = df[columns].isin([np.inf])
-        msg = bad_locations(missing)
-        e.args = msg
-        raise
-    return df
+    return has_no_x(df, values=[-np.inf], columns=columns)
 
 
 def has_unique_index(df):
