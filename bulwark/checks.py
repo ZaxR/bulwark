@@ -61,12 +61,12 @@ def has_columns(df, columns, exact_cols=False, exact_order=False):
 
 
 def has_no_x(df, values=None, columns=None):
-    """Asserts that there are no user specified values in `df`.
+    """Asserts that there are no user-specified `values` in `df`'s `columns`.
 
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
         values (list): A list of values to check for in the pd.DataFrame.
-        columns (list): A subset of columns to check for np.nans.
+        columns (list): A subset of columns to check for `values`.
 
     Returns:
         Original `df`.
@@ -108,7 +108,7 @@ def has_no_nones(df, columns=None):
 
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
-        columns (list): A subset of columns to check for np.nans.
+        columns (list): A subset of columns to check for Nones.
 
     Returns:
         Original `df`.
@@ -124,7 +124,7 @@ def has_no_infs(df, columns=None):
 
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
-        columns (list): A subset of columns to check for np.nans.
+        columns (list): A subset of columns to check for np.infs.
 
     Returns:
         Original `df`.
@@ -140,7 +140,7 @@ def has_no_neg_infs(df, columns=None):
 
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
-        columns (list): A subset of columns to check for np.nans.
+        columns (list): A subset of columns to check for -np.infs.
 
     Returns:
         Original `df`.
