@@ -152,7 +152,8 @@ def has_no_neg_infs(df, columns=None):
 def has_set_within_vals(df, items):
     """Asserts that all given values are found in columns' values.
 
-    This is a convenience wrapper for `has_no_x`.
+    In other words, the given values in the `items` dict should all be a subset of
+    the values found in the associated column in `df`.
 
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
@@ -160,6 +161,15 @@ def has_set_within_vals(df, items):
 
     Returns:
         Original `df`.
+
+    Example:
+        The following check will pass, since df['a'] contains each of 1 and 2:
+        >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
+        >>> ck.has_set_within_vals(df, items={"a": [1, 2]})
+
+        The following check will fail, since df['b'] doesn't contain each of "a" and "d":
+        >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
+        >>> ck.has_set_within_vals(df, items={"a": [1, 2], "b": ["a", "d"]})
 
     """
     bad_cols_vals = {}
