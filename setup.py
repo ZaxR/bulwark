@@ -6,8 +6,8 @@ from setuptools import setup, find_packages
 
 import project_info
 
-cmdclass = {}
 
+cmdclass = {}
 try:
     from sphinx.setup_command import BuildDoc
     cmdclass['build_sphinx'] = BuildDoc
@@ -23,9 +23,6 @@ setup_requires = ["pytest-runner"]
 install_requires = ['numpy', 'pandas', 'six']
 tests_requires = ["coverage", "pytest"]
 dev_requires = ["Sphinx", "sphinx_rtd_theme"]
-
-# cmdclass = {'build_sphinx': BuildDoc}
-
 
 name = project_info.NAME
 author = project_info.AUTHOR
