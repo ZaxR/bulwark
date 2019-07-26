@@ -162,12 +162,14 @@ def has_set_within_vals(df, items):
     Returns:
         Original `df`.
 
-    Example:
+    Examples:
         The following check will pass, since df['a'] contains each of 1 and 2:
+
         >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
         >>> ck.has_set_within_vals(df, items={"a": [1, 2]})
 
         The following check will fail, since df['b'] doesn't contain each of "a" and "d":
+
         >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
         >>> ck.has_set_within_vals(df, items={"a": [1, 2], "b": ["a", "d"]})
 
