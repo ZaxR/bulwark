@@ -1,2 +1,5 @@
-__name__ = "bulwark"
-__version__ = "0.3.0"
+import project_info
+
+
+__name__ = project_info.NAME
+__version__ = project_info.RELEASE
