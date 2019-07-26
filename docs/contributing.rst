@@ -67,7 +67,8 @@ When it's time to create a release candidate, a new branch should be created fro
 However, several additional steps must also be taken: 
 
 1. Update version. Currently this is required in three spots: setup.py, bulwark/__init__.py, and docs/conf.py
-2. Rebuild the docs in your local version using:
+2. Update the CHANGELOG.md and the main README.md/index.rst (as appropriate).
+3. Rebuild the docs in your local version using:
 
 .. code-block:: bash
 
@@ -75,4 +76,4 @@ However, several additional steps must also be taken:
   cd docs
   make html
 
-3. Merge the release candidate into both master (which will trigger updates for PyPi and readthedocs) and develop.
+4. Merge the release candidate into both master (which will trigger updates for PyPi and readthedocs) and develop.

@@ -108,25 +108,4 @@ You can even use custom functions with MultiCheck:
     append_a_df(df, df2)
 ```
 
-Check out [examples](https://bulwark.readthedocs.io/en/latest/examples.html) to see more advanced usage.
-
-
-Roadmap
-=======
-
-- Fix / Improve documentation
-  - inherit BaseDecorator and the functions' docstrings w / `__doc__`
-  - rewrite design.rst and examples.rst
-  - Demo how to use with read files from csv
-  write func to import, decorate with dc.funcs
-- Improve error message outputs
-  - Possibly JSON format
-- Refactor warn functionality, adding to all functions / decorators
-  - Add warn hook for desired effect if not error
-  - Use the warnings library? https://docs.python.org/3/library/warnings.html
-- Add functions for:
-  - has_col_order,
-  - has_cols,
-  - Add check for object type columns that all values are of a python type(e.g. all str),
-  - Check incrementing / complete index
-- Add automatic changelogs
+See [examples](https://bulwark.readthedocs.io/en/latest/examples.html) to see more advanced usage.

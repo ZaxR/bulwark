@@ -121,11 +121,8 @@ You can even use custom functions with MultiCheck:
    append_a_df(df, df2)
 
 
-Check out :ref:`examples` to see more advanced usage.
+See :ref:`examples` to see more advanced usage.
 
-
-Contents
-========
 
 .. toctree::
    :hidden:
