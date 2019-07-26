@@ -13,7 +13,7 @@ the R library [assertr](https://github.com/ropenscilabs/assertr).
 Why?
 ====
 
-Data are messy, and pandas is one of the go - to libraries for analyzing tabular data.
+Data are messy, and pandas is one of the go-to libraries for analyzing tabular data.
 In the real world, data analysts and scientists often feel like they don't have the time
 or energy to think of and write tests for their data. Bulwark's goal is to let you check
 that your data meets your assumptions of what it should look like at any(and every) step
