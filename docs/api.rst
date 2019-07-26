@@ -1,18 +1,8 @@
-Decorators
---------------
-
-.. currentmodule:: bulwark.decorators
-
-.. autosummary::
-   :toctree: _source
-   :members:
-
-
-Checks
+API
 -----------------
 
-.. currentmodule:: bulwark.checks
-
 .. autosummary::
-   :toctree: _source
-   :members:
+   :toctree:
+
+   bulwark.checks
+   bulwark.decorators
