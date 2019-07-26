@@ -149,6 +149,32 @@ def has_no_neg_infs(df, columns=None):
     return has_no_x(df, values=[-np.inf], columns=columns)
 
 
+def has_set_within_vals(df, items):
+    """Asserts that all given values are found in columns' values.
+
+    This is a convenience wrapper for `has_no_x`.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        items (dict): Mapping of columns to values excepted to be found within them.
+
+    Returns:
+        Original `df`.
+
+    """
+    bad_cols_vals = {}
+
+    for col, vals in items.items():
+        missing_vals = np.setdiff1d(vals, df[col].unique(), assume_unique=True).tolist()
+        if missing_vals:
+            bad_cols_vals.update({col: missing_vals})
+
+    if bad_cols_vals:
+        raise AssertionError("The following column: value pairs are missing: {}".format(bad_cols_vals))
+
+    return df
+
+
 def has_unique_index(df):
     """Asserts that `df`'s index is unique.
 
@@ -164,6 +190,7 @@ def has_unique_index(df):
     except AssertionError as e:
         e.args = df.index[df.index.duplicated()].unique()
         raise
+
     return df
 
 
@@ -201,6 +228,7 @@ def is_monotonic(df, items=None, increasing=None, strict=False):
                 good = good & (s.to_series().diff().dropna() < 0).all()
         if not good:
             raise AssertionError
+
     return df
 
 

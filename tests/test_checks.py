@@ -127,6 +127,24 @@ def test_has_no_nans_raises():
         dc.HasNoNans()(_add_n)(df, n=2)
 
 
+def test_has_set_within_vals():
+    df = pd.DataFrame({'A': [1, 2, 3], 'B': ['a', 'b', 'c']})
+
+    items = {'A': [1, 2, 3], 'B': ['a', 'b', 'c']}
+    tm.assert_frame_equal(df, ck.has_set_within_vals(df, items))
+    tm.assert_frame_equal(df, dc.HasSetWithinVals(items=items)(_noop)(df))
+
+    items = {'A': [1, 2], 'B': ['a', 'b']}
+    tm.assert_frame_equal(df, ck.has_set_within_vals(df, items))
+    tm.assert_frame_equal(df, dc.HasSetWithinVals(items=items)(_noop)(df))
+
+    items = {'A': [1, 2, 4], 'B': ['a', 'b', 'd']}
+    with pytest.raises(AssertionError):
+        ck.has_set_within_vals(df, items)
+    with pytest.raises(AssertionError):
+        dc.HasSetWithinVals(items=items)(_noop)(df)
+
+
 def test_unique():
     df = pd.DataFrame([[1, 2, 3], ['a', 'b', 'c']])
     tm.assert_frame_equal(df, ck.unique(df))
