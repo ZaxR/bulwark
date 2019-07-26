@@ -14,20 +14,20 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
-
+import project_info
 
 # -- Project information -----------------------------------------------------
-
-project = 'bulwark'
-copyright = '2019, Zax Rosenberg'
-author = 'Zax Rosenberg'
+project = project_info.NAME
+author = project_info.AUTHOR
+copyright = "{year}, {author}".format(year=project_info.COPYRIGHT_YEAR, author=author)
 
 # The short X.Y version
-version = '0.3'
+version = project_info.VERSION
 # The full version, including alpha/beta/rc tags
-release = '0.3.0'
+release = project_info.RELEASE
 
 
 # -- General configuration ---------------------------------------------------
@@ -98,7 +98,7 @@ html_theme_options = {
     'style_external_links': False,
     # 'vcs_pageview_mode': '',
     # Toc options
-    'collapse_navigation': False,
+    'collapse_navigation': True,
     'sticky_navigation': True,
     'navigation_depth': 4,
     'includehidden': True,

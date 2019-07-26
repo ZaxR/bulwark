@@ -3,10 +3,11 @@
 
 """The setup script."""
 from setuptools import setup, find_packages
-# from sphinx.setup_command import BuildDoc
+
+import project_info
+
 
 cmdclass = {}
-
 try:
     from sphinx.setup_command import BuildDoc
     cmdclass['build_sphinx'] = BuildDoc
@@ -23,13 +24,12 @@ install_requires = ['numpy', 'pandas', 'six']
 tests_requires = ["coverage", "pytest"]
 dev_requires = ["Sphinx", "sphinx_rtd_theme"]
 
-# cmdclass = {'build_sphinx': BuildDoc}
+name = project_info.NAME
+author = project_info.AUTHOR
+copyright = project_info.COPYRIGHT_YEAR
+version = project_info.VERSION
+release = project_info.RELEASE
 
-
-name = "bulwark"
-copyright = "2019"
-version = '0.3'
-release = '0.3.0'
 setup(
     name=name,
     version=release,
@@ -37,7 +37,7 @@ setup(
     long_description=readme,
     long_description_content_type='text/markdown',
     url="https://github.com/zaxr/bulwark",
-    author="Zax Rosenberg",
+    author=author,
     author_email="zaxr@protonmail.com",
     classifiers=["Development Status :: 3 - Alpha",
                  "Intended Audience :: Developers",

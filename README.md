@@ -13,7 +13,7 @@ the R library [assertr](https://github.com/ropenscilabs/assertr).
 Why?
 ====
 
-Data are messy, and pandas is one of the go - to libraries for analyzing tabular data.
+Data are messy, and pandas is one of the go-to libraries for analyzing tabular data.
 In the real world, data analysts and scientists often feel like they don't have the time
 or energy to think of and write tests for their data. Bulwark's goal is to let you check
 that your data meets your assumptions of what it should look like at any(and every) step
@@ -38,7 +38,7 @@ on the functions you're already writing:
 ```python
     import bulwark.decorators as dc
 
-    @dc.IsShape(-1, 10)
+    @dc.IsShape((-1, 10))
     @dc.IsMonotonic(strict=True)
     @dc.HasNoNans()
     def compute(df):
@@ -108,25 +108,4 @@ You can even use custom functions with MultiCheck:
     append_a_df(df, df2)
 ```
 
-Check out [examples](https://bulwark.readthedocs.io/en/latest/examples.html) to see more advanced usage.
-
-
-Roadmap
-=======
-
-- Fix / Improve documentation
-  - inherit BaseDecorator and the functions' docstrings w / `__doc__`
-  - rewrite design.rst and examples.rst
-  - Demo how to use with read files from csv
-  write func to import, decorate with dc.funcs
-- Improve error message outputs
-  - Possibly JSON format
-- Refactor warn functionality, adding to all functions / decorators
-  - Add warn hook for desired effect if not error
-  - Use the warnings library? https://docs.python.org/3/library/warnings.html
-- Add functions for:
-  - has_col_order,
-  - has_cols,
-  - Add check for object type columns that all values are of a python type(e.g. all str),
-  - Check incrementing / complete index
-- Add automatic changelogs
+See [examples](https://bulwark.readthedocs.io/en/latest/examples.html) to see more advanced usage.

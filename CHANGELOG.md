@@ -2,6 +2,13 @@ Changelog
 ==========
 
 
+<h2>[0.4.0] - 2019-07-26</h2>
+**Added**
+- Add `has_no_x`, `has_no_nones`, and `has_set_within_vals`.
+
+**Changed**
+- `has_no_nans` now checks only for np.nans and not also None. Checking for None is available through has_no_nones.
+
 <h2>[0.3.0] - 2019-05-30</h2>
 **Added**
 - Add `exact_order` param to `has_columns`

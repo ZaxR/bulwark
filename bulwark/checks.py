@@ -60,8 +60,35 @@ def has_columns(df, columns, exact_cols=False, exact_order=False):
     return df
 
 
+def has_no_x(df, values=None, columns=None):
+    """Asserts that there are no user-specified `values` in `df`'s `columns`.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        values (list): A list of values to check for in the pd.DataFrame.
+        columns (list): A subset of columns to check for `values`.
+
+    Returns:
+        Original `df`.
+
+    """
+    values = values if values is not None else []
+    columns = columns if columns is not None else df.columns
+
+    try:
+        assert not df[columns].isin(values).values.any()
+    except AssertionError as e:
+        missing = df[columns].isin(values)
+        msg = bad_locations(missing)
+        e.args = msg
+        raise
+    return df
+
+
 def has_no_nans(df, columns=None):
     """Asserts that there are no np.nans in `df`.
+
+    This is a convenience wrapper for `has_no_x`.
 
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
@@ -71,61 +98,92 @@ def has_no_nans(df, columns=None):
         Original `df`.
 
     """
-    if columns is None:
-        columns = df.columns
-    try:
-        assert not df[columns].isnull().values.any()
-    except AssertionError as e:
-        missing = df[columns].isnull()
-        msg = bad_locations(missing)
-        e.args = msg
-        raise
-    return df
+    return has_no_x(df, values=[np.nan], columns=columns)
+
+
+def has_no_nones(df, columns=None):
+    """Asserts that there are no Nones in `df`.
+
+    This is a convenience wrapper for `has_no_x`.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        columns (list): A subset of columns to check for Nones.
+
+    Returns:
+        Original `df`.
+
+    """
+    return has_no_x(df, values=[None], columns=columns)
 
 
 def has_no_infs(df, columns=None):
     """Asserts that there are no np.infs in `df`.
 
+    This is a convenience wrapper for `has_no_x`.
+
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
-        columns (list): A subset of columns to check for np.nans.
+        columns (list): A subset of columns to check for np.infs.
 
     Returns:
         Original `df`.
 
     """
-    if columns is None:
-        columns = df.columns
-    try:
-        assert not df[columns].isin([np.inf]).values.any()
-    except AssertionError as e:
-        missing = df[columns].isin([np.inf])
-        msg = bad_locations(missing)
-        e.args = msg
-        raise
-    return df
+    return has_no_x(df, values=[np.inf], columns=columns)
 
 
 def has_no_neg_infs(df, columns=None):
     """Asserts that there are no np.infs in `df`.
 
+    This is a convenience wrapper for `has_no_x`.
+
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
-        columns (list): A subset of columns to check for np.nans.
+        columns (list): A subset of columns to check for -np.infs.
 
     Returns:
         Original `df`.
 
     """
-    if columns is None:
-        columns = df.columns
-    try:
-        assert not df[columns].isin([-np.inf]).values.any()
-    except AssertionError as e:
-        missing = df[columns].isin([np.inf])
-        msg = bad_locations(missing)
-        e.args = msg
-        raise
+    return has_no_x(df, values=[-np.inf], columns=columns)
+
+
+def has_set_within_vals(df, items):
+    """Asserts that all given values are found in columns' values.
+
+    In other words, the given values in the `items` dict should all be a subset of
+    the values found in the associated column in `df`.
+
+    Args:
+        df (pd.DataFrame): Any pd.DataFrame.
+        items (dict): Mapping of columns to values excepted to be found within them.
+
+    Returns:
+        Original `df`.
+
+    Examples:
+        The following check will pass, since df['a'] contains each of 1 and 2:
+
+        >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
+        >>> ck.has_set_within_vals(df, items={"a": [1, 2]})
+
+        The following check will fail, since df['b'] doesn't contain each of "a" and "d":
+
+        >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
+        >>> ck.has_set_within_vals(df, items={"a": [1, 2], "b": ["a", "d"]})
+
+    """
+    bad_cols_vals = {}
+
+    for col, vals in items.items():
+        missing_vals = np.setdiff1d(vals, df[col].unique(), assume_unique=True).tolist()
+        if missing_vals:
+            bad_cols_vals.update({col: missing_vals})
+
+    if bad_cols_vals:
+        raise AssertionError("The following column: value pairs are missing: {}".format(bad_cols_vals))
+
     return df
 
 
@@ -144,6 +202,7 @@ def has_unique_index(df):
     except AssertionError as e:
         e.args = df.index[df.index.duplicated()].unique()
         raise
+
     return df
 
 
@@ -181,6 +240,7 @@ def is_monotonic(df, items=None, increasing=None, strict=False):
                 good = good & (s.to_series().diff().dropna() < 0).all()
         if not good:
             raise AssertionError
+
     return df
 
 
