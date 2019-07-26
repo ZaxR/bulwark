@@ -15,12 +15,9 @@
 import os
 import sys
 
-import project_info
-
-
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
-
+import project_info
 
 # -- Project information -----------------------------------------------------
 project = project_info.NAME
