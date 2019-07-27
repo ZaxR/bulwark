@@ -9,6 +9,7 @@ Checks
 ------
 
 Each check:
+
 - takes a pd.DataFrame as its first argument, with optional additional arguments,
 - make an assert about the pd.DataFrame, and
 - return the original, unaltered pd.DataFrame
