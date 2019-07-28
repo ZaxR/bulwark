@@ -18,7 +18,7 @@ with open("README.md") as readme_file:
 
 # Requirements placed here for convenient viewing
 setup_requires = ["pytest-runner"]
-install_requires = ['numpy', 'pandas', 'six']
+install_requires = ['importlib_metadata', 'numpy', 'pandas', 'six']
 tests_requires = ["coverage", "pytest"]
 dev_requires = ["Sphinx", "sphinx_rtd_theme"]
 
