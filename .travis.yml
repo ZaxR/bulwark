@@ -1,27 +1,21 @@
 dist: xenial
 language: python
 python:
-  - 3.5
-  - 3.6
-  - 3.7
+- 3.5
+- 3.6
+- 3.7
 notifications:
   email: false
-
-# Install requirements and pytest
 install:
-  - pip install -r requirements.txt
-  - pip install pytest
-
-# Run test
+- pip install -r requirements.txt
+- pip install pytest
 script:
-  - pytest tests
-
-# Auto-deploy to pypi #
+- pytest tests
 deploy:
   provider: pypi
   user: zaxr
   password:
-    secure: VWXTA3UTJ/Gr5E4iYpqAqlu+1dDGCgs7a9xstOSYMRkIAaZFo5fo0V7MkCeacvK2sVKFSILsubQEqj63UKIlgPbjdPsgOjALAQnGUkh3gxlhiNZyV5x14RNK4H2VUs9p9uxKQ23wVIz2JU9Ewqxqzx9UiIOiUfZcLfPHXFnXi4ftQ7m5s/qCOrfxbk9ptnyAIrGrCPGp9J0Blz1H0LYe/9QhJTe36af7LCYQx2mbYZRDcR/g/oofVWCEfays49CM5+1AsVF3WgYxcF76xOtOLfW0nbrOmof0jq+1vG/LnA3aMEYjCgWy6waReYs9pFvByDQUyAfaC0N+cPm4XmsAK2P6+cKvz5heL/AP6rzOz+g5XxceWt/e2O7pT+LXqVRSrKweW6cUYexyyf4c1QN6pPIT0RbMe95IZinSBRIMF1K4ZOFa7jRpY4TaBynbUtRxB7xcW8kNKF0XjJXGVqq2RQvjn1DxgZQuozEYh4lA4BOEi+nUvaOSX5zoqRXFE4dYE4WT97DCDQqjl/+KJcfY/gRpvLo9QK8ZX2aeAWoR7pAwJ+YcpySRO659x1sIjyrYIbBd6a1+Lvr8JrrEHlnGdk8thszps3l25YvYfHW/1VCqBRWUpy+fvOWZ/UEReMSreCl7FrxLJII6M/G4AC/tuF5lFg2iWcNz8s+nrelJOUA=
+    secure: ${PASSWORD}  # stored in travis
   on:
     branch: master
   skip_existing: true

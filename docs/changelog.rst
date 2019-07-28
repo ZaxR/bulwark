@@ -1,6 +1,14 @@
 Changelog
 --------------
 
+**[0.4.2] - 2019-07-28**
+Changed
+- Hotfix to allow import bulwark to work.
+
+**[0.4.1] - 2019-07-26**
+Changed
+- Hotfix to allow import bulwark to work.
+
 **[0.4.0] - 2019-07-26**
 Added
 - Add `has_no_x`, `has_no_nones`, and `has_set_within_vals`.
