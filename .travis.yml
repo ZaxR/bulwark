@@ -13,9 +13,9 @@ script:
 - pytest tests
 deploy:
   provider: pypi
-  user: zaxr
+  user: @token
   password:
-    secure: ${PASSWORD}  # stored in travis
+    secure: $PASSWORD  # stored in travis
   on:
     branch: master
   skip_existing: true

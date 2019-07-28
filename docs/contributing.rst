@@ -90,4 +90,12 @@ However, several additional steps must also be taken:
   python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
   pip install --index-url https://test.pypi.org/simple/ bulwark
 
+5. Manually upload to PyPI for real
+
+.. code-block:: bash
+  python3 -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+  @token
+  <private token>
+
+
 4. Merge the release candidate into both master (which will trigger updates for PyPi and readthedocs) and develop.
