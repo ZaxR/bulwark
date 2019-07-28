@@ -66,6 +66,7 @@ target/
 
 # Pycharm
 .idea
+venv/
 
 # IPython NB Checkpoints
 .ipynb_checkpoints/
