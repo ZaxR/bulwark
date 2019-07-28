@@ -4,8 +4,6 @@
 """The setup script."""
 from setuptools import setup, find_packages
 
-import project_info
-
 
 cmdclass = {}
 try:
@@ -24,20 +22,11 @@ install_requires = ['numpy', 'pandas', 'six']
 tests_requires = ["coverage", "pytest"]
 dev_requires = ["Sphinx", "sphinx_rtd_theme"]
 
-name = project_info.NAME
-author = project_info.AUTHOR
-copyright = project_info.COPYRIGHT_YEAR
-version = project_info.VERSION
-release = project_info.RELEASE
-
 setup(
-    name=name,
-    version=release,
     description='A python package for defensive data analysis.',
     long_description=readme,
     long_description_content_type='text/markdown',
     url="https://github.com/zaxr/bulwark",
-    author=author,
     author_email="zaxr@protonmail.com",
     classifiers=["Development Status :: 3 - Alpha",
                  "Intended Audience :: Developers",
@@ -53,12 +42,12 @@ setup(
     install_requires=install_requires,
     tests_require=tests_requires,
     test_suite="tests",
-    extras_require={'dev': dev_requires},
+    # extras_require={'dev': dev_requires},
     cmdclass=cmdclass,
     # these are optional and override conf.py settings
-    command_options={'build_sphinx': {"project": ("setup.py", name),
-                                      "copyright": ("setup.py", copyright),
-                                      "version": ("setup.py", version),
-                                      "release": ("setup.py", release),
-                                      "source_dir": ("setup.py", "docs")}}
+    # command_options={'build_sphinx': {"project": ("setup.py", name),
+    #                                   "copyright": ("setup.py", copyright),
+    #                                   "version": ("setup.py", version),
+    #                                   "release": ("setup.py", release),
+    #                                   "source_dir": ("setup.py", "docs")}}
 )

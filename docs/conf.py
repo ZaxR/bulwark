@@ -12,22 +12,6 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../'))
-import project_info
-
-# -- Project information -----------------------------------------------------
-project = project_info.NAME
-author = project_info.AUTHOR
-copyright = "{year}, {author}".format(year=project_info.COPYRIGHT_YEAR, author=author)
-
-# The short X.Y version
-version = project_info.VERSION
-# The full version, including alpha/beta/rc tags
-release = project_info.RELEASE
 
 
 # -- General configuration ---------------------------------------------------
@@ -48,6 +32,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
+    'jaraco.packaging.sphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -162,7 +147,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     (master_doc, 'bulwark', 'Bulwark Documentation',
-     [author], 1)
+     ["author"], 1)
 ]
 
 
@@ -173,7 +158,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'bulwark', 'Bulwark Documentation',
-     author, 'bulwark', 'One line description of project.',
+     "author", 'bulwark', 'One line description of project.',
      'Miscellaneous'),
 ]
 
@@ -181,7 +166,7 @@ texinfo_documents = [
 # -- Options for Epub output -------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = project
+epub_title = "bulwark"
 
 # The unique identifier of the text. This can be a ISBN number
 # or the project homepage.
