@@ -72,6 +72,7 @@ However, several additional steps must also be taken:
 
 .. code-block:: bash
 
+  pip install -e ".[dev]"
   sphinx-apidoc -o ./docs/_source ./bulwark -f
   cd docs
   make html
