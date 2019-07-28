@@ -25,9 +25,9 @@ bulwark.checks
       multi_check
       one_to_many
       unique
-      within_n_std
-      within_range
-      within_set
+      has_vals_within_n_std
+      has_vals_within_range
+      has_vals_within_set
    
    
 

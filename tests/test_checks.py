@@ -280,43 +280,43 @@ def test_monotonic_items():
         df), df + 1)
 
 
-def test_within_set():
+def test_has_vals_within_set():
     df = pd.DataFrame({'A': [1, 2, 3], 'B': ['a', 'b', 'c']})
     items = {'A': [1, 2, 3], 'B': ['a', 'b', 'c']}
-    tm.assert_frame_equal(df, ck.within_set(df, items))
+    tm.assert_frame_equal(df, ck.has_vals_within_set(df, items))
     tm.assert_frame_equal(df, dc.WithinSet(items=items)(_noop)(df))
 
     items.pop('A')
-    tm.assert_frame_equal(df, ck.within_set(df, items))
+    tm.assert_frame_equal(df, ck.has_vals_within_set(df, items))
     tm.assert_frame_equal(df, dc.WithinSet(items=items)(_noop)(df))
 
     items['A'] = [1, 2]
     with pytest.raises(AssertionError):
-        ck.within_set(df, items)
+        ck.has_vals_within_set(df, items)
     with pytest.raises(AssertionError):
         dc.WithinSet(items=items)(_noop)(df)
 
 
-def test_within_range():
+def test_has_vals_within_range():
     df = pd.DataFrame({'A': [-1, 0, 1]})
     items = {'A': (-1, 1)}
-    tm.assert_frame_equal(df, ck.within_range(df, items))
+    tm.assert_frame_equal(df, ck.has_vals_within_range(df, items))
     tm.assert_frame_equal(df, dc.WithinRange(items)(_noop)(df))
 
     items['A'] = (0, 1)
     with pytest.raises(AssertionError):
-        ck.within_range(df, items)
+        ck.has_vals_within_range(df, items)
     with pytest.raises(AssertionError):
         dc.WithinRange(items)(_noop)(df)
 
 
-def test_within_n_std():
+def test_has_vals_within_n_std():
     df = pd.DataFrame({'A': np.arange(10), 'B': list('abcde') * 2})
-    tm.assert_frame_equal(df, ck.within_n_std(df))
+    tm.assert_frame_equal(df, ck.has_vals_within_n_std(df))
     tm.assert_frame_equal(df, dc.WithinNStd()(_noop)(df))
 
     with pytest.raises(AssertionError):
-        ck.within_n_std(df, .5)
+        ck.has_vals_within_n_std(df, .5)
     with pytest.raises(AssertionError):
         dc.WithinNStd(.5)(_noop)(df)
 
