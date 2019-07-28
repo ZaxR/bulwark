@@ -13,7 +13,8 @@ script:
 - pytest tests
 deploy:
   provider: pypi
-  user: @token
+  user: "@token"
+  # server: https://test.pypi.org/legacy/  # uncomment to do a test deploy
   password:
     secure: $PASSWORD  # stored in travis
   on:
