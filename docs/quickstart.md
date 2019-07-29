@@ -14,7 +14,7 @@ Next, import bulwark. You can either use function versions of the checks
 or decorator versions. By convension, import either/both of these as
 follow:
 
-```python
+```
 import bulwark.checks as ck
 import bulwark.decorators as dc
 ```
