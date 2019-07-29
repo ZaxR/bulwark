@@ -1,6 +1,6 @@
 Installation
 ============
 
-``` {.sourceCode .bash}
+```bash
 pip install bulwark
 ```

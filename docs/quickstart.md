@@ -42,4 +42,4 @@ You can stack multiple decorators on top of each other to have the first
 failed decorator check result in an assertion error or use the built-in
 MultiCheck to collect all of the errors are raise them at once.
 
-See [examples]{role="ref"} to see more advanced usage.
+See [examples](examples.html) to see more advanced usage.
