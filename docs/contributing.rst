@@ -25,7 +25,11 @@ Fork and Clone Bulwark
 
 Set up a Development Environment
 --------------------------------
-Bulwark supports Python 3.5+. It's recommended to use version 3.5 for development to ensure newer features aren't accidentally used, though CI tools will check all versions on the creation of a PR.
+Bulwark supports Python 3.5+. It's recommended to use version 3.5 for development to ensure newer features aren't accidentally used, though CI tools will check all versions on the creation of a PR. Install development requirements as follows:
+
+.. code-block:: bash
+
+  pip install -e ".[dev]"
 
 
 Create a Feature Branch
@@ -89,13 +93,5 @@ However, several additional steps must also be taken:
   python3 setup.py sdist bdist_wheel
   python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
   pip install --index-url https://test.pypi.org/simple/ bulwark
-
-5. Manually upload to PyPI for real
-
-.. code-block:: bash
-  python3 -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
-  @token
-  <private token>
-
 
 4. Merge the release candidate into both master (which will trigger updates for PyPi and readthedocs) and develop.

@@ -1,6 +1,5 @@
 Bulwark's Documentation
 ========================================
-
 Bulwark is a package for convenient property-based testing of pandas dataframes, supported for Python 3.5+.
 
 Documentation: https://bulwark.readthedocs.io/en/latest/index.html
