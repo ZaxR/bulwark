@@ -91,7 +91,7 @@ def has_no_x(df, values=None, columns=None):
 
 def none_missing(df, columns=None):
     """Deprecated: Replaced with has_no_nans"""
-    warnings.warn("This function has been renamed to has_no_nans. The old name will be removed in 0.7",
+    warnings.warn("This function has been renamed to has_no_nans. The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 
@@ -202,7 +202,7 @@ def has_set_within_vals(df, items):
 
 def unique_index(df):
     """Deprecated: Replaced with has_unique_index"""
-    warnings.warn("This function has been renamed to hasunique_index. The old name will be removed in 0.7",
+    warnings.warn("This function has been renamed to hasunique_index. The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 
@@ -308,14 +308,15 @@ def unique(df, columns=None):
             raise AssertionError("Column {!r} contains non-unique values".format(col))
     return df
 
+
 def within_set(df, items=None):
     """Deprecated: replaced with has_vals_within_set"""
-    warnings.warn("This function has been renamed to has_vals_within_set. The old name will be removed in 0.7",
+    warnings.warn("This function has been renamed to has_vals_within_set. The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 
     return has_vals_within_set(df, items)
-    
+
 
 def has_vals_within_set(df, items=None):
     """Asserts that `df` is a subset of items.
@@ -338,11 +339,12 @@ def has_vals_within_set(df, items=None):
 
 def within_range(df, items=None):
     """Deprecated: Replaced with has_vals_within_range"""
-    warnings.warn("This function has been renamed to has_vals_within_range. The old name will be removed in 0.7",
+    warnings.warn("This function has been renamed to has_vals_within_range. The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 
     return has_vals_within_range(df, items)
+
 
 def has_vals_within_range(df, items=None):
     """Asserts that `df` is within a range.
@@ -365,7 +367,7 @@ def has_vals_within_range(df, items=None):
 
 def within_n_std(df, n=3):
     """Deprecated: replaced with has_vals_within_n_std"""
-    warnings.warn("This function has been renamed to has_vals_within_n_std. The old name will be removed in 0.7",
+    warnings.warn("This function has been renamed to has_vals_within_n_std. The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 

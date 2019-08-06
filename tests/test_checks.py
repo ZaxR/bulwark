@@ -83,15 +83,19 @@ def test_has_no_nans():
     result = dc.HasNoNans()(_add_n)(df, n=2)
     tm.assert_frame_equal(result, df + 2)
 
-    
+
 def test_none_missing():
     df = pd.DataFrame(np.random.randn(5, 3))
-    result = ck.none_missing(df)
+    with pytest.deprecated_call():
+        result = ck.none_missing(df)
     tm.assert_frame_equal(df, result)
 
-    result = dc.NoneMissing()(_add_n)(df, 2)
+    with pytest.deprecated_call():
+        result = dc.NoneMissing()(_add_n)(df, 2)
     tm.assert_frame_equal(result, df + 2)
-    result = dc.NoneMissing()(_add_n)(df, n=2)
+
+    with pytest.deprecated_call():
+        result = dc.NoneMissing()(_add_n)(df, n=2)
     tm.assert_frame_equal(result, df + 2)
 
 
@@ -183,13 +187,17 @@ def test_has_unique_index():
 
 def test_unique_index():
     df = pd.DataFrame([1, 2, 3], index=['a', 'b', 'c'])
-    tm.assert_frame_equal(df, ck.unique_index(df))
-    result = dc.UniqueIndex()(_add_n)(df)
+
+    with pytest.deprecated_call():
+        tm.assert_frame_equal(df, ck.unique_index(df))
+
+    with pytest.deprecated_call():
+        result = dc.UniqueIndex()(_add_n)(df)
     tm.assert_frame_equal(result, df + 1)
 
-    with pytest.raises(AssertionError):
+    with pytest.raises(AssertionError), pytest.deprecated_call():
         ck.unique_index(df.reindex(['a', 'a', 'b']))
-    with pytest.raises(AssertionError):
+    with pytest.raises(AssertionError), pytest.deprecated_call():
         dc.UniqueIndex()(_add_n)(df.reindex(['a', 'a', 'b']))
 
 
@@ -306,19 +314,23 @@ def test_monotonic_items():
 def test_within_set():
     df = pd.DataFrame({'A': [1, 2, 3], 'B': ['a', 'b', 'c']})
     items = {'A': [1, 2, 3], 'B': ['a', 'b', 'c']}
-    tm.assert_frame_equal(df, ck.within_set(df, items))
-    tm.assert_frame_equal(df, dc.WithinSet(items=items)(_noop)(df))
+
+    with pytest.deprecated_call():
+        tm.assert_frame_equal(df, ck.within_set(df, items))
+        tm.assert_frame_equal(df, dc.WithinSet(items=items)(_noop)(df))
 
     items.pop('A')
-    tm.assert_frame_equal(df, ck.within_set(df, items))
-    tm.assert_frame_equal(df, dc.WithinSet(items=items)(_noop)(df))
+    with pytest.deprecated_call():
+        tm.assert_frame_equal(df, ck.within_set(df, items))
+        tm.assert_frame_equal(df, dc.WithinSet(items=items)(_noop)(df))
 
     items['A'] = [1, 2]
-    with pytest.raises(AssertionError):
-        ck.has_vals_within_set(df, items)
-    with pytest.raises(AssertionError):
+    with pytest.raises(AssertionError), pytest.deprecated_call():
+        ck.within_set(df, items)
+    with pytest.raises(AssertionError), pytest.deprecated_call():
         dc.WithinSet(items=items)(_noop)(df)
-    
+
+
 def test_has_vals_within_set():
     df = pd.DataFrame({'A': [1, 2, 3], 'B': ['a', 'b', 'c']})
     items = {'A': [1, 2, 3], 'B': ['a', 'b', 'c']}
@@ -333,7 +345,7 @@ def test_has_vals_within_set():
     with pytest.raises(AssertionError):
         ck.has_vals_within_set(df, items)
     with pytest.raises(AssertionError):
-        dc.WithinSet(items=items)(_noop)(df)
+        dc.HasValsWithinSet(items=items)(_noop)(df)
 
 
 def test_has_vals_within_range():
@@ -352,13 +364,15 @@ def test_has_vals_within_range():
 def test_within_range():
     df = pd.DataFrame({'A': [-1, 0, 1]})
     items = {'A': (-1, 1)}
-    tm.assert_frame_equal(df, ck.within_range(df, items))
-    tm.assert_frame_equal(df, dc.WithinRange(items)(_noop)(df))
+
+    with pytest.deprecated_call():
+        tm.assert_frame_equal(df, ck.within_range(df, items))
+        tm.assert_frame_equal(df, dc.WithinRange(items)(_noop)(df))
 
     items['A'] = (0, 1)
-    with pytest.raises(AssertionError):
+    with pytest.raises(AssertionError), pytest.deprecated_call():
         ck.within_range(df, items)
-    with pytest.raises(AssertionError):
+    with pytest.raises(AssertionError), pytest.deprecated_call():
         dc.WithinRange(items)(_noop)(df)
 
 
@@ -375,12 +389,14 @@ def test_has_vals_within_n_std():
 
 def test_within_n_std():
     df = pd.DataFrame({'A': np.arange(10), 'B': list('abcde') * 2})
-    tm.assert_frame_equal(df, ck.within_n_std(df))
-    tm.assert_frame_equal(df, dc.WithinNStd()(_noop)(df))
 
-    with pytest.raises(AssertionError):
+    with pytest.deprecated_call():
+        tm.assert_frame_equal(df, ck.within_n_std(df))
+        tm.assert_frame_equal(df, dc.WithinNStd()(_noop)(df))
+
+    with pytest.raises(AssertionError), pytest.deprecated_call():
         ck.within_n_std(df, .5)
-    with pytest.raises(AssertionError):
+    with pytest.raises(AssertionError), pytest.deprecated_call():
         dc.WithinNStd(.5)(_noop)(df)
 
 
