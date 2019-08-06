@@ -20,7 +20,7 @@ with open("README.md") as readme_file:
 # Requirements placed here for convenient viewing
 install_requires = ['numpy>=1.8', 'pandas>=0.16.2', 'six>=1.10.0']
 tests_requires = ["coverage", "pytest"]
-docs_requires = ["setuptools>=30.4", "Sphinx", "sphinx_rtd_theme"]
+docs_requires = ["m2r", "setuptools>=30.4", "Sphinx", "sphinx_rtd_theme"]
 dev_requires = tests_requires + docs_requires
 
 name = project_info.NAME
