@@ -100,5 +100,12 @@ python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 pip install --index-url https://test.pypi.org/simple/ bulwark
 ```
 
-4.  Merge the release candidate into both master (which will trigger
+5.  Merge the release candidate into both master (which will trigger
     updates for PyPi and readthedocs) and develop.
+
+6.  Tag the release locally and push it to remote:
+
+```bash
+git tag -a v<#.#.#> <SHA-goes-here> -m "bulwark version <#.#.#>"
+git push origin --tags
+```

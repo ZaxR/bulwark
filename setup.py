@@ -41,7 +41,7 @@ setup(
     url="https://github.com/zaxr/bulwark",
     author=author,
     author_email="zaxr@protonmail.com",
-    classifiers=["Development Status :: 3 - Alpha",
+    classifiers=["Development Status :: 4 - Beta",
                  "Intended Audience :: Developers",
                  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
                  "Natural Language :: English",
