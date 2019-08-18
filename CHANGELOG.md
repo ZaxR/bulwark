@@ -2,6 +2,19 @@ Changelog
 ==========
 
 
+<h2>[0.5.0] - 2019-08-18</h2>
+**Added**
+- Add support for old Engarde function names with deprecation warnings for v0.7.0.
+- Add ability to check bulwark version with `bulwark.__version__`
+- Add status badges to README.md
+- Add Sphinx markdown support and single-source readme, changelog.
+
+**Changed**
+- Upgrade Development Status to Beta (from Alpha)
+- Update gitignore for venv
+- Update contributing documentation
+- Single-sourced project version
+
 <h2>[0.4.2] - 2019-07-28</h2>
 **Changed**
 - Hotfix to allow import bulwark to work.

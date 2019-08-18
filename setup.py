@@ -20,7 +20,7 @@ with open("README.md") as readme_file:
 # Requirements placed here for convenient viewing
 install_requires = ['numpy>=1.8', 'pandas>=0.16.2', 'six>=1.10.0']
 tests_requires = ["coverage", "pytest"]
-docs_requires = ["setuptools>=30.4", "Sphinx", "sphinx_rtd_theme"]
+docs_requires = ["m2r", "setuptools>=30.4", "Sphinx", "sphinx_rtd_theme"]
 dev_requires = tests_requires + docs_requires
 
 name = project_info.NAME
@@ -41,7 +41,7 @@ setup(
     url="https://github.com/zaxr/bulwark",
     author=author,
     author_email="zaxr@protonmail.com",
-    classifiers=["Development Status :: 3 - Alpha",
+    classifiers=["Development Status :: 4 - Beta",
                  "Intended Audience :: Developers",
                  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
                  "Natural Language :: English",

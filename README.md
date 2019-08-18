@@ -1,5 +1,14 @@
 Bulwark's Documentation
 ========================================
+<a href="https://pypi.org/project/bulwark/"><img src="https://img.shields.io/pypi/dm/bulwark?style=for-the-badge" alt="downloads" /></a>  
+
+<a href="https://pypi.org/project/bulwark/"><img src="https://img.shields.io/pypi/v/bulwark?style=for-the-badge" alt="latest release" /></a>
+<a href="https://pypi.org/project/bulwark/"><img src="https://img.shields.io/pypi/pyversions/bulwark?style=for-the-badge" alt="supported python versions" /></a>
+<a href="https://pypi.org/project/bulwark/"><img src="https://img.shields.io/pypi/status/bulwark?style=for-the-badge" alt="package status" /></a>
+<a href="https://github.com/ZaxR/bulwark/blob/master/LICENSE"><img src="https://img.shields.io/pypi/l/bulwark?style=for-the-badge" alt="license" /></a>
+
+<a href="https://travis-ci.com/ZaxR/bulwark"><img src="https://img.shields.io/travis/com/ZaxR/bulwark?style=for-the-badge" alt="travis build status" /></a>
+<a href="https://bulwark.readthedocs.io/en/latest/"><img src="https://img.shields.io/readthedocs/bulwark/latest?style=for-the-badge" alt="docs build status" /></a>  
 
 Bulwark is a package for convenient property-based testing of pandas dataframes, supported for Python 3.5+.
 
