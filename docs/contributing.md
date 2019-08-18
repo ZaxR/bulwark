@@ -18,11 +18,11 @@ Fork and Clone Bulwark
     button.
 2.  Next, you\'ll want to clone your fork to your machine:
 
-```bash
-git clone https://github.com/your-user-name/bulwark.git bulwark-dev
-cd bulwark-dev
-git remote add upstream https://github.com/ZaxR/bulwark.git
-```
+    ```bash
+    git clone https://github.com/your-user-name/bulwark.git bulwark-dev
+    cd bulwark-dev
+    git remote add upstream https://github.com/ZaxR/bulwark.git
+    ```
 
 Set up a Development Environment
 --------------------------------
@@ -76,36 +76,33 @@ git checkout -b release/x.x.x
 
 However, several additional steps must also be taken:
 
-1.  Update version in project\_info.py, which updates three spots:
-    setup.py, bulwark/\_\_init\_\_.py, and docs/conf.py
-2.  Update the CHANGELOG.md and the main README.md (as appropriate).
-3.  Rebuild the docs in your local version using:
+-   Update version in project\_info.py, which updates three spots: setup.py, bulwark/\_\_init\_\_.py, and docs/conf.py.
+-   Update the CHANGELOG.md and the main README.md (as appropriate).
+-   Rebuild the docs in your local version using:
 
-```bash
-sphinx-apidoc -o ./docs/_source ./bulwark -f
-cd docs
-make html
-```
+    ```bash
+    pip install -e ".[dev]"
+    sphinx-apidoc -o ./docs/_source ./bulwark -f
+    cd docs
+    make html
+    ```
+-   Test distribution using TestPyPI with Twine:
 
-4.  Test distribution using TestPyPI with Twine
+    ```bash
+    # Installation
+    python3 -m pip install --user --upgrade setuptools wheel
+    python3 -m pip install --user --upgrade twine
 
-```bash
-# Installation
-python3 -m pip install --user --upgrade setuptools wheel
-python3 -m pip install --user --upgrade twine
-
-# Build/Upload dist and install library
-python3 setup.py sdist bdist_wheel
-python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-pip install --index-url https://test.pypi.org/simple/ bulwark
-```
-
-5.  Merge the release candidate into both master (which will trigger
+    # Build/Upload dist and install library
+    python3 setup.py sdist bdist_wheel
+    python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+    pip install --index-url https://test.pypi.org/simple/bulwark
+    ```
+-   Merge the release candidate into both master (which will trigger
     updates for PyPi and readthedocs) and develop.
+-   Tag the release locally and push it to remote:
 
-6.  Tag the release locally and push it to remote:
-
-```bash
-git tag -a v<#.#.#> <SHA-goes-here> -m "bulwark version <#.#.#>"
-git push origin --tags
-```
+    ```bash
+    git tag -a v<#.#.#> <SHA-goes-here> -m "bulwark version <#.#.#>"
+    git push origin --tags
+    ```
