@@ -10,7 +10,6 @@ Each function in this module should:
 import numpy as np
 import pandas as pd
 import pandas.util.testing as tm
-import six
 import warnings
 
 from bulwark.generic import bad_locations
@@ -453,7 +452,7 @@ def is_same_as(df, df_to_compare, **kwargs):
     try:
         tm.assert_frame_equal(df, df_to_compare, **kwargs)
     except AssertionError as exc:
-        six.raise_from(AssertionError("DataFrames are not equal"), exc)
+        raise AssertionError("DataFrames are not equal") from exc
     return df
 
 
