@@ -50,6 +50,8 @@ CustomCheck might need its own full class instead of using BaseDecorator
 This code is below the auto-generation of decorators, so this overwrites the auto-generated CustomCheck.
 
 """
+
+
 def _custom_check(check_func, *args, **kwargs):
     def decorate(operation_func):
         @functools.wraps(operation_func)

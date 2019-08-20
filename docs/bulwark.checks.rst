@@ -3,12 +3,12 @@ bulwark.checks
 
 .. automodule:: bulwark.checks
 
-   
-   
+
+
    .. rubric:: Functions
 
    .. autosummary::
-   
+
       custom_check
       has_columns
       has_dtypes
@@ -28,13 +28,3 @@ bulwark.checks
       has_vals_within_n_std
       has_vals_within_range
       has_vals_within_set
-   
-   
-
-   
-   
-   
-
-   
-   
-   

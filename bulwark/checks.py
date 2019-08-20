@@ -7,10 +7,11 @@ Each function in this module should:
 - return the original, unaltered pd.DataFrame
 
 """
+import warnings
+
 import numpy as np
 import pandas as pd
 import pandas.util.testing as tm
-import warnings
 
 from bulwark.generic import bad_locations
 

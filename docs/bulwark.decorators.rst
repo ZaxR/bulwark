@@ -3,23 +3,23 @@ bulwark.decorators
 
 .. automodule:: bulwark.decorators
 
-   
-   
+
+
    .. rubric:: Functions
 
    .. autosummary::
-   
+
       CustomCheck
       decorator_factory
-   
-   
 
-   
-   
+
+
+
+
    .. rubric:: Classes
 
    .. autosummary::
-   
+
       BaseDecorator
       HasColumns
       HasDtypes
@@ -39,9 +39,3 @@ bulwark.decorators
       WithinNStd
       WithinRange
       WithinSet
-   
-   
-
-   
-   
-   
