@@ -18,5 +18,6 @@ deploy:
   password:
     secure: $PASSWORD  # stored in travis env var, with `:` after `pypi` escaped (pypi\:)
   on:
+    tags: true
     branch: master
   skip_existing: true
