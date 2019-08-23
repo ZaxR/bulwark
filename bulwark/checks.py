@@ -26,7 +26,8 @@ def has_columns(df, columns, exact_cols=False, exact_order=False):
         df (pd.DataFrame): Any pd.DataFrame.
         columns (list or tuple): Columns that are expected to be in ``df``.
         exact_cols (bool): Whether or not ``columns`` need to be the only columns in ``df``.
-        exact_order (bool): Whether or not ``columns`` need to be in the same order as the columns in ``df``.
+        exact_order (bool): Whether or not ``columns`` need to be in
+                            the same order as the columns in ``df``.
 
     Returns:
         Original `df`.
@@ -46,7 +47,8 @@ def has_columns(df, columns, exact_cols=False, exact_order=False):
 
     if exact_order:
         if missing_cols:
-            msg.append("`df` column order does not match given `columns` order, because columns are missing.")
+            msg.append("`df` column order does not match given `columns` order, "
+                       "because columns are missing.")
         else:
             # idx_order = [columns.index(df.columns[i]) for i in range(len(columns))]
             idx_order = []
@@ -91,7 +93,8 @@ def has_no_x(df, values=None, columns=None):
 
 def none_missing(df, columns=None):
     """Deprecated: Replaced with has_no_nans"""
-    warnings.warn("This function has been renamed to has_no_nans. The old name will be removed in 0.7.",
+    warnings.warn("This function has been renamed to has_no_nans. "
+                  "The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 
@@ -195,14 +198,16 @@ def has_set_within_vals(df, items):
             bad_cols_vals.update({col: missing_vals})
 
     if bad_cols_vals:
-        raise AssertionError("The following column: value pairs are missing: {}".format(bad_cols_vals))
+        raise AssertionError("The following column: value pairs are missing: {}"
+                             .format(bad_cols_vals))
 
     return df
 
 
 def unique_index(df):
     """Deprecated: Replaced with has_unique_index"""
-    warnings.warn("This function has been renamed to hasunique_index. The old name will be removed in 0.7.",
+    warnings.warn("This function has been renamed to hasunique_index. "
+                  "The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 
@@ -279,8 +284,9 @@ def is_shape(df, shape):
 
     """
     try:
-        check = np.all(np.equal(df.shape, shape) | (np.equal(shape, [-1, -1]) |
-                                                    np.equal(shape, [None, None])))
+        check = np.all(np.equal(df.shape, shape) |
+                       (np.equal(shape, [-1, -1]) |
+                        np.equal(shape, [None, None])))
         assert check
     except AssertionError as e:
         msg = ("Expected shape: {}\n"
@@ -311,7 +317,8 @@ def unique(df, columns=None):
 
 def within_set(df, items=None):
     """Deprecated: replaced with has_vals_within_set"""
-    warnings.warn("This function has been renamed to has_vals_within_set. The old name will be removed in 0.7.",
+    warnings.warn("This function has been renamed to has_vals_within_set. "
+                  "The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 
@@ -339,7 +346,8 @@ def has_vals_within_set(df, items=None):
 
 def within_range(df, items=None):
     """Deprecated: Replaced with has_vals_within_range"""
-    warnings.warn("This function has been renamed to has_vals_within_range. The old name will be removed in 0.7.",
+    warnings.warn("This function has been renamed to has_vals_within_range. "
+                  "The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 
@@ -367,7 +375,8 @@ def has_vals_within_range(df, items=None):
 
 def within_n_std(df, n=3):
     """Deprecated: replaced with has_vals_within_n_std"""
-    warnings.warn("This function has been renamed to has_vals_within_n_std. The old name will be removed in 0.7.",
+    warnings.warn("This function has been renamed to has_vals_within_n_std. "
+                  "The old name will be removed in 0.7.",
                   DeprecationWarning,
                   stacklevel=1)
 
@@ -408,7 +417,8 @@ def has_dtypes(df, items):
     dtypes = df.dtypes
     for col, dtype in items.items():
         if not dtypes[col] == dtype:
-            raise AssertionError("{} has the wrong dtype. Should be ({}), is ({})".format(col, dtype, dtypes[col]))
+            raise AssertionError("{} has the wrong dtype. Should be ({}), is ({})"
+                                 .format(col, dtype, dtypes[col]))
     return df
 
 
@@ -432,7 +442,8 @@ def one_to_many(df, unitcol, manycol):
     subset = df[[manycol, unitcol]].drop_duplicates()
     for many in subset[manycol].unique():
         if subset[subset[manycol] == many].shape[0] > 1:
-            msg = "{} in {} has multiple values for {}".format(many, manycol, unitcol)
+            msg = ("{} in {} has multiple values for {}"
+                   .format(many, manycol, unitcol))
             raise AssertionError(msg)
 
     return df
