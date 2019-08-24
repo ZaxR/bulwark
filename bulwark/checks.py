@@ -181,13 +181,22 @@ def has_set_within_vals(df, items):
     Examples:
         The following check will pass, since df['a'] contains each of 1 and 2:
 
+        >>> import bulwark.checks as ck
+        >>> import pandas as pd
         >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
         >>> ck.has_set_within_vals(df, items={"a": [1, 2]})
+           a  b
+        0  1  a
+        1  2  b
+        2  3  c
 
         The following check will fail, since df['b'] doesn't contain each of "a" and "d":
 
         >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
         >>> ck.has_set_within_vals(df, items={"a": [1, 2], "b": ["a", "d"]})
+        Traceback (most recent call last):
+            ...
+        AssertionError: The following column: value pairs are missing: {'b': ['d']}
 
     """
     bad_cols_vals = {}
