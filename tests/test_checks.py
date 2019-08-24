@@ -17,10 +17,14 @@ def _noop(df):
 
 
 @pytest.mark.parametrize("df,columns,exact_cols,exact_order",
-                         [(pd.DataFrame({"a": [1], "b": [2], "c": [3]}), ["a", "b", "c"], True, True),
-                          (pd.DataFrame({"a": [1], "b": [2], "c": [3]}), ["a", "b"], False, False),
-                          (pd.DataFrame({"a": [1], "b": [2], "c": [3]}), ["a", "b"], False, True),
-                          (pd.DataFrame({"a": [1], "b": [2], "c": [3]}), ["b", "c"], False, True),
+                         [(pd.DataFrame({"a": [1], "b": [2], "c": [3]}),
+                           ["a", "b", "c"], True, True),
+                          (pd.DataFrame({"a": [1], "b": [2], "c": [3]}),
+                           ["a", "b"], False, False),
+                          (pd.DataFrame({"a": [1], "b": [2], "c": [3]}),
+                           ["a", "b"], False, True),
+                          (pd.DataFrame({"a": [1], "b": [2], "c": [3]}),
+                           ["b", "c"], False, True),
                           pytest.param(pd.DataFrame({"a": [1], "b": [2], "c": [3]}),
                                        ["a", "b"], True, True, marks=pytest.mark.xfail),
                           pytest.param(pd.DataFrame({"a": [1], "b": [2], "c": [3]}),

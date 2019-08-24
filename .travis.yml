@@ -2,16 +2,21 @@ dist: xenial
 
 language: python
 python:
-- 3.5
-- 3.6
-- 3.7
+  - 3.5
+  - 3.6
+  - 3.7
 
 notifications:
   email: false
 
-install: pip install -U tox-travis
+install:
+  - pip install -U tox-travis
+  - pip install codecov
 
 script: tox
+
+after_success:
+  - codecov # submit coverage
 
 deploy:
   provider: pypi
