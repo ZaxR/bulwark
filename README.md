@@ -123,4 +123,4 @@ See [examples](https://bulwark.readthedocs.io/en/latest/examples.html) to see mo
 
 ## Contributing
 
-Bulwark is always looking for new contributors! We work hard to make contributing as easy as possible, and previous open source experience is not required! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for how to get started.
+Bulwark is always looking for new contributors! We work hard to make contributing as easy as possible, and previous open source experience is not required! Please see [contributing.md](docs/contributing.md) for how to get started.
