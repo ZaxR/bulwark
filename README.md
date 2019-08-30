@@ -12,12 +12,14 @@ Bulwark's Documentation
 <a href="https://codecov.io/gh/ZaxR/bulwark"><img src="https://img.shields.io/codecov/c/github/zaxr/bulwark?style=for-the-badge&token=79c0ebb7eba84f56845fbc3073a0cb18" alt="coverage status" /></a>
 
 
-Bulwark is a package for convenient property-based testing of pandas dataframes, supported for Python 3.5+.
+Bulwark is a package for convenient property-based testing of pandas dataframes,
+supported for Python 3.5+.
 
 Documentation: https://bulwark.readthedocs.io/en/latest/index.html
 
 This project was heavily influenced by the no-longer-supported [Engarde](https://github.com/TomAugspurger/engarde) library
-by Tom Augspurger(thanks for the head start, Tom!), which itself was modeled after
+by Tom Augspurger(thanks for the head start, Tom!),
+which itself was modeled after
 the R library [assertr](https://github.com/ropenscilabs/assertr).
 
 
@@ -25,10 +27,13 @@ Why?
 ====
 
 Data are messy, and pandas is one of the go-to libraries for analyzing tabular data.
-In the real world, data analysts and scientists often feel like they don't have the time
-or energy to think of and write tests for their data. Bulwark's goal is to let you check
-that your data meets your assumptions of what it should look like at any(and every) step
-in your code, without making you work too hard.
+In the real world,
+data analysts and scientists often feel like they don't have the time or energy
+to think of and write tests for their data.
+Bulwark's goal is to let you check
+that your data meets your assumptions of what it should look like
+at any (and every) step in your code,
+without making you work too hard.
 
 
 Installation
@@ -43,7 +48,8 @@ Usage
 =====
 
 Bulwark comes with checks for many of the common assumptions you might want to validate
-for the functions that make up your ETL pipeline, and lets you toss those checks as decorators
+for the functions that make up your ETL pipeline,
+and lets you toss those checks as decorators
 on the functions you're already writing:
 
 ```python
@@ -57,7 +63,8 @@ on the functions you're already writing:
         ...
     return result_df
 ```
-Still want to have more robust test files? Bulwark's got you covered there, too, with importable functions.
+Still want to have more robust test files?
+Bulwark's got you covered there, too, with importable functions.
 
 ```python
     import bulwark.checks as ck
@@ -94,8 +101,9 @@ Use the built-in `CustomCheck` to use your own custom function!
 ```
 
 What if I want to run a lot of tests and want to see all the errors at once?
-You can use the built-in `MultiCheck`. It will collect all of the errors and either
-display a warning message of throw an exception based on the `warn` flag.
+You can use the built-in `MultiCheck`.
+It will collect all of the errors
+and either display a warning message of throw an exception based on the `warn` flag.
 You can even use custom functions with MultiCheck:
 
 ```python
@@ -123,4 +131,7 @@ See [examples](https://bulwark.readthedocs.io/en/latest/examples.html) to see mo
 
 ## Contributing
 
-Bulwark is always looking for new contributors! We work hard to make contributing as easy as possible, and previous open source experience is not required! Please see [contributing.md](docs/contributing.md) for how to get started.
+Bulwark is always looking for new contributors!
+We work hard to make contributing as easy as possible,
+and previous open source experience is not required!
+Please see [contributing.md](docs/contributing.md) for how to get started.
