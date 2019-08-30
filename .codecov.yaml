@@ -1,0 +1,8 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 95%
+        threshold: 5%
+        base: auto
+    patch: off

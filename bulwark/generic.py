@@ -8,10 +8,6 @@ import numpy as np
 import pandas as pd
 
 
-#########################
-#### ERROR REPORTING ####
-#########################
-
 def bad_locations(df):
     """Indicates bad cells in `df`."""
     columns = df.columns
