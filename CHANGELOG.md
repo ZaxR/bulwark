@@ -2,6 +2,11 @@ Changelog
 ==========
 
 
+<h2>[0.5.1] - 2019-08-29</h2>
+**Changed**
+- Remove unnecessary six dependency
+
+
 <h2>[0.5.0] - 2019-08-18</h2>
 **Added**
 - Add support for old Engarde function names with deprecation warnings for v0.7.0.
