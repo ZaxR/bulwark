@@ -1,16 +1,23 @@
 dist: xenial
+
 language: python
 python:
-- 3.5
-- 3.6
-- 3.7
+  - 3.5
+  - 3.6
+  - 3.7
+
 notifications:
   email: false
+
 install:
-- pip install -r requirements.txt
-- pip install pytest
-script:
-- pytest tests
+  - pip install -U tox-travis
+  - pip install codecov
+
+script: tox
+
+after_success:
+  - codecov # submit coverage
+
 deploy:
   provider: pypi
   user: __token__
@@ -18,5 +25,6 @@ deploy:
   password:
     secure: $PASSWORD  # stored in travis env var, with `:` after `pypi` escaped (pypi\:)
   on:
+    tags: true
     branch: master
   skip_existing: true

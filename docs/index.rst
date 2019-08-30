@@ -7,7 +7,7 @@
 
 .. toctree::
    :hidden:
-   
+
    changelog
    installation
    quickstart

@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """The setup script."""
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 from bulwark import project_info
-
 
 cmdclass = {}
 try:
@@ -19,9 +18,9 @@ with open("README.md") as readme_file:
 
 # Requirements placed here for convenient viewing
 install_requires = ['numpy>=1.8', 'pandas>=0.16.2']
-tests_requires = ["coverage", "pytest"]
+tests_requires = ["pytest", "pytest-cov"]
 docs_requires = ["m2r", "setuptools>=30.4", "Sphinx", "sphinx_rtd_theme"]
-dev_requires = tests_requires + docs_requires
+dev_requires = tests_requires + docs_requires + ["pre-commit", "tox"]
 
 name = project_info.NAME
 author = project_info.AUTHOR
