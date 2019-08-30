@@ -37,7 +37,7 @@ Each of these abbreviated workflow steps has additional instructions in sections
 
 ## Development Practices and Standards
 
-- Obey follow PEP-8 and [Google's docstring format](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html).
+- Obey PEP-8 and [Google's docstring format](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html).
   - The only exception to PEP-8 is that line length can be up to 100 characters.
 - Use underscores to separate words in non-class names.
   E.g. `n_samples` rather than `nsamples`.
@@ -58,7 +58,8 @@ Each of these abbreviated workflow steps has additional instructions in sections
 
 ## Set up Git and a GitHub Account
 
-- If you don't already have a GitHub account, you can register for free.
+- If you don't already have a GitHub account,
+  you can [register](https://github.com/join ) for free.
 - If you don't already have Git installed,
   you can follow these [git installation instructions](https://help.github.com/en/articles/set-up-git).
 
@@ -66,8 +67,7 @@ Each of these abbreviated workflow steps has additional instructions in sections
 ## Fork and Clone Bulwark
 
 1. You will need your own fork to work on the code. Go to the [Bulwark
-   project page](https://github.com/ZaxR/bulwark) and hit the Fork
-    button.
+   project page](https://github.com/ZaxR/bulwark) and hit the Fork button.
 2. Next, you'll want to clone your fork to your machine:
 
     ```bash
