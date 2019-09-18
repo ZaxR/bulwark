@@ -135,3 +135,6 @@ Bulwark is always looking for new contributors!
 We work hard to make contributing as easy as possible,
 and previous open source experience is not required!
 Please see [contributing.md](docs/contributing.md) for how to get started.
+
+Thank you to all our past contributors, especially these folks:  
+[![](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/images/0)](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/links/0)[![](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/images/1)](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/links/1)[![](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/images/2)](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/links/2)[![](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/images/3)](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/links/3)[![](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/images/4)](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/links/4)[![](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/images/5)](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/links/5)[![](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/images/6)](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/links/6)[![](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/images/7)](https://sourcerer.io/fame/ZaxR/ZaxR/bulwark/links/7)
