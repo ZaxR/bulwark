@@ -50,6 +50,7 @@ setup(
                  "Programming Language :: Python :: 3.7"],
     keywords='data analysis testing',
     packages=find_packages(exclude=["docs", "tests"]),
+    python_requires=">=3.5",
     install_requires=install_requires,
     # Deprecated: setup_requires, tests_require, test_suite
     # Each extra exists for purpose k, and requires install of v.
