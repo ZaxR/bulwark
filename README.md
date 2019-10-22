@@ -12,7 +12,6 @@ Bulwark's Documentation
 <a href="https://bulwark.readthedocs.io/en/latest/"><img src="https://img.shields.io/readthedocs/bulwark/latest?style=for-the-badge" alt="docs build status" /></a>
 <a href="https://codecov.io/gh/ZaxR/bulwark"><img src="https://img.shields.io/codecov/c/github/zaxr/bulwark?style=for-the-badge&token=79c0ebb7eba84f56845fbc3073a0cb18" alt="coverage status" /></a>
 
-
 Bulwark is a package for convenient property-based testing of pandas dataframes,
 supported for Python 3.5+.
 
@@ -22,7 +21,6 @@ This project was heavily influenced by the no-longer-supported [Engarde](https:/
 by Tom Augspurger(thanks for the head start, Tom!),
 which itself was modeled after
 the R library [assertr](https://github.com/ropenscilabs/assertr).
-
 
 Why?
 ====
@@ -35,7 +33,6 @@ Bulwark's goal is to let you check
 that your data meets your assumptions of what it should look like
 at any (and every) step in your code,
 without making you work too hard.
-
 
 Installation
 =============
