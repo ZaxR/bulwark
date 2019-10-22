@@ -5,7 +5,7 @@ Installation
 pip install bulwark
 ```
 
-or 
+or
 
 ```bash
 conda install -c conda-forge bulwark
