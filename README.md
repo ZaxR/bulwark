@@ -5,12 +5,12 @@ Bulwark's Documentation
 <a href="https://pypi.org/project/bulwark/"><img src="https://img.shields.io/pypi/v/bulwark?style=for-the-badge" alt="latest release" /></a>
 <a href="https://pypi.org/project/bulwark/"><img src="https://img.shields.io/pypi/pyversions/bulwark?style=for-the-badge" alt="supported python versions" /></a>
 <a href="https://pypi.org/project/bulwark/"><img src="https://img.shields.io/pypi/status/bulwark?style=for-the-badge" alt="package status" /></a>
+<a href="https://anaconda.org/conda-forge/bulwark"><img src="https://img.shields.io/conda/pn/conda-forge/bulwark?style=for-the-badge" alt="conda" /></a>
 <a href="https://github.com/ZaxR/bulwark/blob/master/LICENSE"><img src="https://img.shields.io/pypi/l/bulwark?style=for-the-badge" alt="license" /></a>
 
 <a href="https://travis-ci.com/ZaxR/bulwark"><img src="https://img.shields.io/travis/com/ZaxR/bulwark?style=for-the-badge" alt="travis build status" /></a>
 <a href="https://bulwark.readthedocs.io/en/latest/"><img src="https://img.shields.io/readthedocs/bulwark/latest?style=for-the-badge" alt="docs build status" /></a>
 <a href="https://codecov.io/gh/ZaxR/bulwark"><img src="https://img.shields.io/codecov/c/github/zaxr/bulwark?style=for-the-badge&token=79c0ebb7eba84f56845fbc3073a0cb18" alt="coverage status" /></a>
-
 
 Bulwark is a package for convenient property-based testing of pandas dataframes,
 supported for Python 3.5+.
@@ -21,7 +21,6 @@ This project was heavily influenced by the no-longer-supported [Engarde](https:/
 by Tom Augspurger(thanks for the head start, Tom!),
 which itself was modeled after
 the R library [assertr](https://github.com/ropenscilabs/assertr).
-
 
 Why?
 ====
@@ -35,7 +34,6 @@ that your data meets your assumptions of what it should look like
 at any (and every) step in your code,
 without making you work too hard.
 
-
 Installation
 =============
 
@@ -43,6 +41,11 @@ Installation
 pip install bulwark
 ```
 
+or
+
+```bash
+conda install -c conda-forge bulwark
+```
 
 Usage
 =====
@@ -63,6 +66,7 @@ on the functions you're already writing:
         ...
     return result_df
 ```
+
 Still want to have more robust test files?
 Bulwark's got you covered there, too, with importable functions.
 
@@ -71,6 +75,7 @@ Bulwark's got you covered there, too, with importable functions.
 
     df.pipe(ck.has_no_nans())
 ```
+
 Won't I have to go clean up all those decorators when I'm ready to go to production?
 Nope - just toggle the built-in "enabled" flag available for every decorator.
 
@@ -81,6 +86,7 @@ Nope - just toggle the built-in "enabled" flag available for every decorator.
         ...
     return result_df
 ```
+
 What if the test I want isn't part of the library?
 Use the built-in `CustomCheck` to use your own custom function!
 
