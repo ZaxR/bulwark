@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+"""Generates decorators for each check in `checks.py`."""
 import functools
 import sys
 from inspect import getfullargspec, getmembers, isfunction
@@ -8,22 +8,20 @@ from bulwark.generic import snake_to_camel
 
 
 class BaseDecorator(object):
-    def __init__(self, *args, **kwargs):  # how to take args in decorator..?
-        self.enabled = True  # setter to enforce bool would be a lot safer
+    def __init__(self, *args, **kwargs):
+        self.enabled = kwargs.pop("enabled", True)  # setter to enforce bool would be a lot safer
         # self.warn = False ? No - put at func level for all funcs and pass through
-        self.params = getfullargspec(self.check_func).args[1:]
 
-        self.__dict__.update(dict(zip(self.params, args)))
-        self.__dict__.update(**kwargs)
+        self.check_func_params = dict(
+            zip(getfullargspec(self.check_func).args[1:], args))
+        self.check_func_params.update(**kwargs)
 
     def __call__(self, f):
         @functools.wraps(f)
         def decorated(*args, **kwargs):
             df = f(*args, **kwargs)
             if self.enabled:
-                kwargs = {k: v for k, v in self.__dict__.items() if k not in [
-                    "check_func", "enabled", "params"]}
-                self.check_func(df, **kwargs)
+                self.check_func(df, **self.check_func_params)
             return df
         return decorated
 
@@ -47,24 +45,39 @@ for func in check_functions:
     setattr(this_module, decorator_name, decorator_factory(decorator_name, func))
 
 
-def _custom_check(check_func, *args, **kwargs):
-    """ ToDo: fit this into BaseDecorator paradigm.
+class CustomCheck:
+    """
+    Notes:
+        - This code is purposefully located below the auto-generation of decorators,
+          so this overwrites the auto-generated CustomCheck.
+        - `CustomCheck`'s __init__ and __call__ diverge from `BaseDecorator`,
+          since the check_func needs to be set by the user at creation time.
 
-    CustomCheck might need its own full class instead of using BaseDecorator
-    This code is below the auto-generation of decorators,
-    so this overwrites the auto-generated CustomCheck.
+    TODO: Work this into BaseDecorator?
 
     """
-    def decorate(operation_func):
-        @functools.wraps(operation_func)
-        def wrapper(*operation_args, **operation_kwargs):
-            df = operation_func(*operation_args, **operation_kwargs)
-            ck.custom_check(check_func, df, *args, **kwargs)
+
+    def __init__(self, *args, **kwargs):
+        self.enabled = kwargs.pop("enabled", True)  # setter to enforce bool would be a lot safer
+        # self.warn = False ? No - put at func level for all funcs and pass through
+
+        self.check_func = kwargs.get("check_func")
+        if self.check_func:
+            check_func_args = args
+        else:
+            self.check_func = args[0]
+            check_func_args = args[1:]
+
+        self.check_func_params = dict(
+            zip(getfullargspec(self.check_func).args[1:], check_func_args))
+        self.check_func_params.update(**kwargs)
+
+    def __call__(self, f):
+        @functools.wraps(f)
+        def decorated(*args, **kwargs):
+            df = f(*args, **kwargs)
+            if self.enabled:
+                # differs from BaseDecorator
+                ck.custom_check(df, self.check_func, **self.check_func_params)
             return df
-        return wrapper
-    return decorate
-
-
-def CustomCheck(check_func, *args, **kwargs):
-    """Assert that `func(df, *args, **kwargs)` is true."""
-    return _custom_check(check_func, *args, **kwargs)
+        return decorated

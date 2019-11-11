@@ -522,16 +522,24 @@ def test_custom_check():
         return df
 
     df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
+    df2 = pd.DataFrame({"a": [7, np.nan, 9], "b": [10, 11, 12]})
 
-    tm.assert_frame_equal(df, ck.custom_check(f, df=df, length=2))
-    tm.assert_frame_equal(df, ck.custom_check(f, df, 2))
+    tm.assert_frame_equal(df, ck.custom_check(df, f, length=2))
+    tm.assert_frame_equal(df, ck.custom_check(df, f, 2))
 
     # order is verify_func, verif_kwargs, decorated_func
     tm.assert_frame_equal(df, dc.CustomCheck(f, length=2)(_noop)(df))
     tm.assert_frame_equal(df, dc.CustomCheck(f, 2)(_noop)(df))
 
+    @dc.CustomCheck(f, 10, enabled=False)
+    def append_a_df(df, df2):
+        return df.append(df2, ignore_index=True)
+
+    result = append_a_df(df, df2)
+    tm.assert_frame_equal(df.append(df2, ignore_index=True), result)
+
     with pytest.raises(AssertionError):
-        ck.custom_check(f, df=df, length=4)
+        ck.custom_check(df, f, length=4)
 
     with pytest.raises(AssertionError):
         dc.CustomCheck(f, 4)(_noop)(df)

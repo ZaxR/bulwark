@@ -91,19 +91,24 @@ What if the test I want isn't part of the library?
 Use the built-in `CustomCheck` to use your own custom function!
 
 ```python
+    import bulwark.checks as ck
+    import bulwark.decorators as dc
+    import numpy as np
+    import pandas as pd
+
     def len_longer_than(df, l):
         if len(df) <= l:
             raise AssertionError("df is not as long as expected.")
         return df
 
-    @dc.CustomCheck(len_longer_than, df=df, l=6)
+    @dc.CustomCheck(len_longer_than, 10, enabled=False)
     def append_a_df(df, df2):
         return df.append(df2, ignore_index=True)
 
     df = pd.DataFrame({"a": [1, 2, 3], "b": [4, 5, 6]})
     df2 = pd.DataFrame({"a": [1, np.nan, 3, 4], "b": [4, 5, 6, 7]})
 
-    append_a_df(df, df2)
+    append_a_df(df, df2)  # doesn't fail because the check is disabled
 ```
 
 What if I want to run a lot of tests and want to see all the errors at once?

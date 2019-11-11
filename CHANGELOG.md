@@ -1,6 +1,19 @@
 Changelog
 ==========
 
+<h2>[0.5.3] - 2019-11-11</h2>
+**Changed**
+- Hotfix the `enabled` flag for `CustomCheck` and decorator arg issues.
+- Swap `custom_check`'s `func` and `df` params
+
+
+<h2>[0.5.2] - 2019-10-25</h2>
+**Added**
+- Add conda-forge
+
+**Changed**
+- Add python_requires in setup.py to limit install to supported Python versions.
+
 
 <h2>[0.5.1] - 2019-08-29</h2>
 **Changed**

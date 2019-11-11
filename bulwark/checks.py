@@ -507,7 +507,7 @@ def multi_check(df, checks, warn=False):
     return df
 
 
-def custom_check(check_func, df, *args, **kwargs):
+def custom_check(df, check_func, *args, **kwargs):
     """Assert that `check(df, *args, **kwargs)` is true.
 
     Args:
