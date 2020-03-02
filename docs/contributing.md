@@ -4,6 +4,7 @@ First off, thank you for considering contributing to `bulwark`!
 It’s thanks to people like you that we continue to have a high-quality, updated and documented tool.
 
 There are a few key ways to contribute:
+
 1. Writing new code (checks, decorators, other functionality)
 2. Writing tests
 3. Writing documentation
@@ -43,7 +44,7 @@ Each of these abbreviated workflow steps has additional instructions in sections
   E.g. `n_samples` rather than `nsamples`.
 - Don't ever use wildcard imports (`from module import *`).
   It's considered to be a bad practice by the [official Python recommendations](https://docs.python.org/3/tutorial/modules.html#importing-from-a-package).
-  The reasons it's undesireable are that it
+  The reasons it's undesirable are that it
   pollutes the namespace,
   makes it harder to identify the origin of code,
   and, most importantly, prevents using a static analysis tool like pyflakes to automatically find bugs.
@@ -75,7 +76,6 @@ Each of these abbreviated workflow steps has additional instructions in sections
     cd bulwark-dev
     git remote add upstream https://github.com/ZaxR/bulwark.git
     ```
-
 
 ## Set up a Development Environment
 
@@ -115,12 +115,12 @@ pre-commit run --all-files
 ```
 
 You can also use tox to run CI in all of the appropriate environments locally, as our cloud CI will:
+
 ```bash
 tox
 # or, use the -e flag for a specific environment. For example:
 tox -e py35
 ```
-
 
 ## Create a Feature Branch
 
@@ -130,7 +130,6 @@ To add a new feature, you will create every feature branch off of the master bra
 git checkout master
 git checkout -b feature/<feature_name_in_snake_case>
 ```
-
 
 ## Rebase on Master and Squash
 
@@ -145,7 +144,6 @@ git checkout feature/<feature_name_in_snake_case>
 git rebase -i master
 ```
 
-
 ## Create a Pull Request to the master branch
 
 [Create a pull request](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork)
@@ -159,10 +157,10 @@ since it won't be reviewed for inclusion until it passes all steps.
 Steps for maintainers are largely the same,
 with a few additional steps before releasing a new version:
 
--   Update version in bulwark/project\_info.py,
-    which updates three spots: setup.py, bulwark/\_\_init\_\_.py, and docs/conf.py.
--   Update the CHANGELOG.md and the main README.md (as appropriate).
--   Rebuild the docs in your local version to verify how they render using:
+- Update version in bulwark/project\_info.py,
+  which updates three spots: setup.py, bulwark/\_\_init\_\_.py, and docs/conf.py.
+- Update the CHANGELOG.md and the main README.md (as appropriate).
+- Rebuild the docs in your local version to verify how they render using:
 
     ```bash
     pip install -e ".[dev]"
@@ -170,7 +168,8 @@ with a few additional steps before releasing a new version:
     cd docs
     make html
     ```
--   Test distribution using TestPyPI with Twine:
+
+- Test distribution using TestPyPI with Twine:
 
     ```bash
     # Installation
@@ -182,11 +181,12 @@ with a few additional steps before releasing a new version:
     python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
     pip install --index-url https://test.pypi.org/simple/bulwark
     ```
--   Releases are indicated using git tags.
-    Create a tag locally for the apporiate commit in master, and push that tag to GitHub.
-    Travis's CD is triggered on tags within master:
 
-```bash
+- Releases are indicated using git tags.
+  Create a tag locally for the appropriate commit in master, and push that tag to GitHub.
+  Travis's CD is triggered on tags within master:
+
+    ```bash
     git tag -a v<#.#.#> <SHA-goes-here> -m "bulwark version <#.#.#>"
     git push origin --tags
-```
+    ```

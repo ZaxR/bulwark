@@ -11,7 +11,7 @@ pip install bulwark
 ```
 
 Next, import bulwark. You can either use function versions of the checks
-or decorator versions. By convension, import either/both of these as
+or decorator versions. By convention, import either/both of these as
 follow:
 
 ```python
