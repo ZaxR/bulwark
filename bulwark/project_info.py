@@ -2,6 +2,6 @@
 
 NAME = "bulwark"
 AUTHOR = "Zax Rosenberg"
-COPYRIGHT_YEAR = "2019"
-VERSION = "0.5"
-RELEASE = "0.5.3"
+COPYRIGHT_YEAR = "2020"
+VERSION = "0.6"
+RELEASE = "0.6.0"

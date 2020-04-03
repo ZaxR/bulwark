@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+<h2>[0.6.0] - 2020-04-02</h2>
+**Changed**
+- Removed support for python 3.5, numpy <1.15, and pandas < 0.23.0
+
+
 <h2>[0.5.3] - 2019-11-11</h2>
 **Changed**
 - Hotfix the `enabled` flag for `CustomCheck` and decorator arg issues.
