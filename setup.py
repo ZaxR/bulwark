@@ -17,7 +17,7 @@ with open("README.md") as readme_file:
     readme = readme_file.read()
 
 # Requirements placed here for convenient viewing
-install_requires = ['numpy>=1.8', 'pandas>=0.16.2']
+install_requires = ['numpy>=1.15', 'pandas>=0.23.0']
 tests_requires = ["pytest", "pytest-cov"]
 docs_requires = ["m2r", "setuptools>=30.4", "Sphinx", "sphinx_rtd_theme"]
 dev_requires = tests_requires + docs_requires + ["pre-commit", "tox"]
@@ -45,12 +45,12 @@ setup(
                  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
                  "Natural Language :: English",
                  "Programming Language :: Python :: 3",
-                 "Programming Language :: Python :: 3.5",
                  "Programming Language :: Python :: 3.6",
-                 "Programming Language :: Python :: 3.7"],
+                 "Programming Language :: Python :: 3.7",
+                 "Programming Language :: Python :: 3.8"],
     keywords='data analysis testing',
     packages=find_packages(exclude=["docs", "tests"]),
-    python_requires=">=3.5",
+    python_requires=">=3.6",
     install_requires=install_requires,
     # Deprecated: setup_requires, tests_require, test_suite
     # Each extra exists for purpose k, and requires install of v.
