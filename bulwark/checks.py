@@ -374,6 +374,8 @@ def has_vals_within_range(df, items=None):
     Returns:
         Original `df`.
 
+    Examples:
+        >>> ck.has_vals_within_range: {"items": {"test_column": (2, 50)}}
     """
     for col, (lower, upper) in items.items():
         if (lower > df[col]).any() or (upper < df[col]).any():
