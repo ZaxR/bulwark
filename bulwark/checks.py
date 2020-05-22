@@ -381,10 +381,10 @@ def has_vals_within_range(df, items=None):
         >>> import pandas as pd
         >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
         >>> ck.has_vals_within_range(df, items= {'a': (0, 3)})
-            a b
-        0 1 a
-        1 2 b
-        2 3 c
+           a  b
+        0  1  a
+        1  2  b
+        2  3  c
 
         The following check will fail, since df['b'] contains 'c' which is
         outside of the specified range:
