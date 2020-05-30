@@ -7,6 +7,7 @@ Each function in this module should:
 - return the original, unaltered pd.DataFrame
 
 """
+import operator
 import warnings
 
 import numpy as np
@@ -248,34 +249,75 @@ def is_monotonic(df, items=None, increasing=None, strict=False):
     Args:
         df (pd.DataFrame): Any pd.DataFrame.
         items (dict): Mapping of columns to conditions (increasing, strict)
-        increasing (bool, None): None is either increasing or decreasing.
-        strict (bool): Whether the comparison should be strict.
+                      E.g. {'col_a': (None, False), 'col_b': (None, False)}
+        increasing (bool, None): None checks for either increasing or decreasing monotonicity.
+        strict (bool): Whether the comparison should be strict,
+                       meaning two values in a row being equal should fail.
 
     Returns:
         Original `df`.
 
+    Examples:
+        The following check will pass, since each column matches its monotonicity requirements:
+
+        >>> import bulwark.checks as ck
+        >>> import pandas as pd
+        >>> df = pd.DataFrame({"incr_strict": [1, 2, 3, 4],
+                               "incr_not_strict": [1, 2, 2, 3],
+                               "decr_strict": [4, 3, 2, 1],
+                               "decr_not_strict": [3, 2, 2, 1]})
+        >>> items = {
+            "incr_strict": (True, True),
+            "incr_not_strict": (True, False),
+            "decr_strict": (False, True),
+            "decr_not_strict": (False, False)
+        }
+        >>> ck.is_monotonic(df, items=items)
+
+        All of the same cases will also pass if increasing=None,
+        since only one of increasing or decreasing monotonicity is then required:
+
+        >>> ck.is_monotonic(df, increasing=None, strict=False)
+
+        The following check will fail,
+        displaying a list of which (row, column)s caused the issue:
+
+        >>> df2 = pd.DataFrame({'not_monotonic': [1, 2, 3, 2]})
+        >>> ck.is_monotonic(df2, increasing=True, strict=False)
+        Traceback (most recent call last):
+            ...
+        AssertionError: [(3, 'not_monotonic')]
+
     """
     if items is None:
-        items = {k: (increasing, strict) for k in df}
+        items = {col: (increasing, strict) for col in df}
 
+    operator_choices = {
+        # key = (increasing, strict)
+        (True, True): operator.gt,
+        (False, True): operator.lt,
+        (True, False): operator.ge,
+        (False, False): operator.le,
+        (None, True): (operator.gt, operator.lt),
+        (None, False): (operator.ge, operator.le),
+    }
+
+    bad = pd.DataFrame()
     for col, (increasing, strict) in items.items():
-        s = pd.Index(df[col])
-        if increasing:
-            good = getattr(s, 'is_monotonic_increasing')
-        elif increasing is None:
-            good = getattr(s, 'is_monotonic') | getattr(s, 'is_monotonic_decreasing')
+        ser_diff = df[col].diff().dropna()
+        op = operator_choices[(increasing, strict)]
+
+        if increasing is None:
+            ser_diff_incr = op[0](ser_diff, 0)
+            ser_diff_dec = op[1](ser_diff, 0)
+            if not ser_diff_incr.all() | ser_diff_dec.all():
+                bad[ser_diff.name] = ~ser_diff_incr | ~ser_diff_dec
         else:
-            good = getattr(s, 'is_monotonic_decreasing')
-        if strict:
-            if increasing:
-                good = good & (s.to_series().diff().dropna() > 0).all()
-            elif increasing is None:
-                good = good & ((s.to_series().diff().dropna() > 0).all() |
-                               (s.to_series().diff().dropna() < 0).all())
-            else:
-                good = good & (s.to_series().diff().dropna() < 0).all()
-        if not good:
-            raise AssertionError
+            bad[ser_diff.name] = ~op(ser_diff, 0)
+
+    if np.any(bad):
+        msg = bad_locations(bad)
+        raise AssertionError(msg)
 
     return df
 
