@@ -41,6 +41,7 @@ release = project_info.RELEASE
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'm2r',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
@@ -49,7 +50,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
-    'm2r',
+    'sphinxcontrib.apidoc',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -244,3 +245,15 @@ autodoc_inherit_docstrings = True  # This is already the default behavior; here 
 
 # Generate autodoc stubs with summaries from code
 autosummary_generate = True
+
+# -- Options for apidoc extension ----------------------------------------------
+# Auto runs the equivalent of sphinx-apidoc -o ./docs/_source ./bulwark -f on build
+# See https://github.com/sphinx-contrib/apidoc#configuration
+apidoc_module_dir = '../bulwark'
+apidoc_output_dir = '_source'
+apidoc_excluded_paths = []
+apidoc_separate_modules = True
+# apidoc_separate_modules = False
+# apidoc_module_first = False
+# apidoc_extra_args = []
+# apidoc_toc_file = None

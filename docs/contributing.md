@@ -164,7 +164,6 @@ with a few additional steps before releasing a new version:
 
     ```bash
     pip install -e ".[dev]"
-    sphinx-apidoc -o ./docs/_source ./bulwark -f
     cd docs
     make html
     ```

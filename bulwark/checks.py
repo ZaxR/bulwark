@@ -263,21 +263,31 @@ def is_monotonic(df, items=None, increasing=None, strict=False):
         >>> import bulwark.checks as ck
         >>> import pandas as pd
         >>> df = pd.DataFrame({"incr_strict": [1, 2, 3, 4],
-                               "incr_not_strict": [1, 2, 2, 3],
-                               "decr_strict": [4, 3, 2, 1],
-                               "decr_not_strict": [3, 2, 2, 1]})
+        ...                    "incr_not_strict": [1, 2, 2, 3],
+        ...                    "decr_strict": [4, 3, 2, 1],
+        ...                    "decr_not_strict": [3, 2, 2, 1]})
         >>> items = {
-            "incr_strict": (True, True),
-            "incr_not_strict": (True, False),
-            "decr_strict": (False, True),
-            "decr_not_strict": (False, False)
-        }
+        ...     "incr_strict": (True, True),
+        ...     "incr_not_strict": (True, False),
+        ...     "decr_strict": (False, True),
+        ...     "decr_not_strict": (False, False)
+        ... }
         >>> ck.is_monotonic(df, items=items)
+           incr_strict  incr_not_strict  decr_strict  decr_not_strict
+        0            1                1            4                3
+        1            2                2            3                2
+        2            3                2            2                2
+        3            4                3            1                1
 
         All of the same cases will also pass if increasing=None,
         since only one of increasing or decreasing monotonicity is then required:
 
         >>> ck.is_monotonic(df, increasing=None, strict=False)
+           incr_strict  incr_not_strict  decr_strict  decr_not_strict
+        0            1                1            4                3
+        1            2                2            3                2
+        2            3                2            2                2
+        3            4                3            1                1
 
         The following check will fail,
         displaying a list of which (row, column)s caused the issue:
