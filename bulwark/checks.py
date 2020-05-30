@@ -416,6 +416,29 @@ def has_vals_within_range(df, items=None):
     Returns:
         Original `df`.
 
+    Examples:
+        The following check will pass, since df['a'] contains values between 0 and 3:
+
+        >>> import bulwark.checks as ck
+        >>> import pandas as pd
+        >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': ['a', 'b', 'c']})
+        >>> ck.has_vals_within_range(df, items= {'a': (0, 3)})
+           a  b
+        0  1  a
+        1  2  b
+        2  3  c
+
+        The following check will fail, since df['b'] contains 'c' which is
+        outside of the specified range:
+
+        >>> ck.has_vals_within_range(df, items= {'a': (0, 3), 'b': ('a', 'b')})
+        Traceback (most recent call last):
+            ...
+        AssertionError: ('Outside range', 0    False
+        1    False
+        2     True
+        Name: b, dtype: bool)
+
     """
     for col, (lower, upper) in items.items():
         if (lower > df[col]).any() or (upper < df[col]).any():
