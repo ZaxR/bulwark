@@ -23,7 +23,8 @@ deploy:
   user: __token__
   # server: https://test.pypi.org/legacy/  # uncomment to do a test deploy
   password:
-    secure: $PASSWORD  # stored in travis env var, with `:` after `pypi` escaped (pypi\:)
+    # generated with `travis encrypt "<pypi-token>" --add deploy.password --com`
+    secure: HeH6IbV7WKdABeqTsEu2zpfbXjBlWWyIZI2radAZ6L/SSlvgGiDORXqHWj15ojU/VA+8rubV/MXj83b0ZRiLQ/KrchrRVtky2JoN3V/G7ODSTCfiOuBfi1s1UY8AdBlMjSRwDpP6vIOIGYuytnLtlnwqAUgPTHLv9nYODa0IREaW9HMQnKD7OY34eVYAAmpXtSuj0LQubTsLdNgjc3e4HJ9zAJXU8n3vxpKehzN4DZdIKlcCO6W2BRUVtdr4DEKKnW0+2VavMV7lyeKGbASnLg+eiRWXgdwaLLnmuJktELlly94bNLb/IORDEF5ODA2SwWgk/Sg+BCpgJHSmn3k4n6iGT0EaXd4FDC1KoHB07iaM8U7vvy41kFPVna37GYihUk1f9SULH5ZBRu3U02dbLaU1pS9W0uQpqLovnD91Itc6PtNZgVqi0OAGqnDCKUYkPs+KYwctxZgUWJ3MRl3ZanLpSCnDsXGpXre4L/vtzbGfa2q02li1b1TrVJBvVXMGiGMsZuh4IGcC3IOaulnwDvuHjw4H2B6bEAFfEd4CTYMI3RyAyAlMbXPrEWEOQETA1JnR+QvMq1CQIyJAZucQ8N8NVWcHgjN1jtp0Bf6cSjPnM6u+vrZStLMFOJ8xR6nX6kN51cu8E7qpADN+rWoxKphjPiyrxa+fBa8aZEejGRk=
   on:
     tags: true
     branch: master
