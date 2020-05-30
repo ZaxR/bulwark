@@ -19,7 +19,9 @@ with open("README.md") as readme_file:
 # Requirements placed here for convenient viewing
 install_requires = ['numpy>=1.15', 'pandas>=0.23.0']
 tests_requires = ["pytest", "pytest-cov"]
-docs_requires = ["m2r", "setuptools>=30.4", "Sphinx", "sphinx_rtd_theme"]
+# Upgrading to Sphinx 3.x.x requires m2r
+# to merge this pr: https://github.com/miyakogi/m2r/pull/55
+docs_requires = ["m2r", "setuptools>=30.4", "Sphinx~=2.0", "sphinx_rtd_theme"]
 dev_requires = tests_requires + docs_requires + ["pre-commit", "tox"]
 
 name = project_info.NAME
