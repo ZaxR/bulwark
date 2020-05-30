@@ -1,6 +1,10 @@
 Changelog
 ==========
 
+<h2>[0.6.1] - 2020-05-30</h2>
+**Changed**
+- Hotfix CI/CD. No changes to the library vs 0.6.0
+
 <h2>[0.6.0] - 2020-05-30</h2>
 **Changed**
 - Removed support for python 3.5, numpy <1.15, and pandas < 0.23.0
