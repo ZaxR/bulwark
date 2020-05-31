@@ -29,6 +29,7 @@ class BaseDecorator(object):
 def decorator_factory(decorator_name, func):
     """Takes in a function and outputs a class that can be used as a decorator."""
     class decorator_name(BaseDecorator):
+        __doc__ = func.__doc__
         check_func = staticmethod(func)
 
     return decorator_name
